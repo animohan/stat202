@@ -1,0 +1,25 @@
+{
+    "contents" : "",
+    "created" : 1443494000066.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F4486B2D",
+    "lastKnownWriteTime" : 27866499440705583,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "u08goz8id9",
+        "caption" : "in_training_target",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=in_training_target&cache_key=u08goz8id9",
+        "displayedObservations" : 2424,
+        "environment" : "",
+        "object" : "in_training_target",
+        "totalObservations" : 2424,
+        "variables" : 2
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

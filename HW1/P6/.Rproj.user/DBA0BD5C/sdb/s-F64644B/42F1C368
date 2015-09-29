@@ -1,0 +1,18 @@
+{
+    "contents" : "numnas<-function(x){\n  sum_na<-0\n  for (n in x){\n    if(is.na(n)==T)\n      sum_na=sum_na+1\n  }\n  return(sum_na)\n}\n\nB<-read.csv(\"training_features.csv\")\n\n\niter<-seq(1:ncol(in_training_features))\nk=length(iter)\nC = matrix(0,nrow=1, ncol=k)\n\nfor(count in iter){\n  C[count]=numnas(B[iter,])\n}\n",
+    "created" : 1443494168994.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2917587542",
+    "id" : "42F1C368",
+    "lastKnownWriteTime" : 1443503701,
+    "path" : "C:/projects/r_projects/Stat202/HW1/P6/Test1.R",
+    "project_path" : "Test1.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
