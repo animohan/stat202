@@ -1,0 +1,111 @@
+---
+title: "HW2"
+author: "Anish mohan"
+date: "September 29, 2015"
+output: html_document
+---
+1. Q1
+  + 1a.  Proof
+  
+  + 1b. As proved, the objective function $\sum_{i,i' \in C_{k}} \sum_{j=1}^{p}\{{x_{i,j}-x_{i'j}}\}^{2}$ is equivalent to finding the sum of distances of the point from the centroid of the cluster. Now, during each iteration each point is assigned to the closest centroid, hence in each iteration the cluster of points in a class are getting closer to the centroid of the class (obtained by current set of points of class). The process continues in each iteration and we continue to reduce the distance between points that belong to the same class.
+ 
+ + 1c.  Flexible model will generally perform better
+
+  
+ + 1d. Inflexible model will generally perform better.
+
+2. Q2:
+  + 2a. Regression. Inference.
+
+  + 2b. Classification. Prediction
+
+  + 2c. AB and CD are the two clusters
+  
+  + 2d. ABC and D are the two clusters
+  
+  + 2e.
+         
+3. Q3
+
+  + 3a.
+```{r}
+Arrests_Data=USArrests
+HC_Arrests_Complete=hclust(dist(Arrests_Data),method="complete")
+plot(HC_Arrests_Complete, main ="US Arrests-Complete Linkage",xlab="States", sub=" ",cex=0.9)
+```
+
+  + 3b. 
+```{r}
+cutree(HC_Arrests_Complete,3)
+```
+
+  + 3c.
+```{r}
+Arrests_Data_Scaled=scale(Arrests_Data,scale=TRUE)
+HC_ScaledArrests_Complete=hclust(dist(Arrests_Data_Scaled),method="complete")
+plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab="States", sub="",cex=0.9)
+```
+
+  + 3d.
+    Scaling the variables has the clustering of the states and the clustering after states is different before and after 
+    scaling. For e.g Arizon and Arkansas have moved to different clusters after scaling.
+    
+    Scaling should be done before creating the distance/dissimilarity matrix and some variables/features have higher values 
+    e.g Assault, that overwhelms the results from variables/feature with lower values/range e.g Murder in the USArrests 
+    Data.
+    
+
+4. Q4
+  + 4a. Theoretically, it is possible to have the linear regression and cubic regression to have the same or similar RSS if the true relationship is linear. The regression model for cubic (when the underlying model is linear) should give us $\beta_{2}$ and $\beta_{3}$ == 0. 
+    However, since the the training data would contain noise and a cubic model would be more prone to fitting the noise, the RSS value is expected to be lower than that for linear regression model.
+        
+  + 4b. Test data will contain noise and the cubic model will be more prone to noise. The cubic model being more flexible will fit to the noise in the data and will have higher residual error than linear model with real datasets.
+  
+  + 4c. If the true relationship is not linear then the accuracy of the model will depend upon the noise in the data and the amount of non-linearity.
+  
+    In general, a cubic regression model (flexible) would perform better than a linear regression model when the underlying 
+    function is non-linear. RSS error on training data should be lower with the cubic regression model.
+  
+    Linear regression model introduces bias when used for non-linear true function hence can result in more errors.
+  
+    Noise in the data can impact the results we get from a cubic model. Noisy data can cause the variance to be high and 
+    impact the results from a cubic model as the model is flexible and prone to overfitting to noise.
+  
+  + 4d. Same as above. In general, it is difficult to give an estimation of errors without knowing the true function, however for most scenarios (with low noise) cubic model should perform better with test data if the underlying model is non linear.
+  
+5. Q5
++ 5a.
+    ```{r}
+  library(MASS)
+  library(ISLR)
+    autodat=Auto
+    pairs(autodat)
+    ```
++ 5b.
+    ```{r}
+    cor(autodat[,1:8])
+    ```
+    
++ 5c.
+    ```{r}
+    attach(autodat)
+    autolm=lm(mpg~cylinders+displacement+horsepower+weight+acceleration+year+origin)
+    summary(autolm)
+    ```
+    + i.
+      Yes there is relationship between some of the predictors and the response (mpg) as can be seen from the graph. 
+      Example, there is a correlation between mpg and displacement, mpg and horsepower, mpg and weight etc.
+    
+    + ii. From the summary table, Year, Weight,Origin seem to have statistically significant (p<0.001) relationship to MPG.
+    
+    + iii. Coefficient for the year variable is 0.75, hence it suggest that every year, the MPG increases by 0.75 unit 
+      increase in MPG
+      
+6. Q6
+
+```{r}
+
+#
+
+```
+
