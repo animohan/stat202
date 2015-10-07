@@ -139,6 +139,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     ylm=lm(y~x1+x2)
     summary(ylm)
 ```
+  
   + $\hat{\beta_{0}}=2.13$ 
     $\hat{\beta_{0}}$ is a good estimator of $\beta_{0}$ as the t-value is high and low p-value.
   
@@ -158,6 +159,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     y2lm=lm(y~x1)
     summary(y2lm)
 ```
+  
   +  Yes, $H_{0}: \beta_{1} =0$ can be rejected as p-value well below 0.001
 
 + 6e. 
@@ -165,6 +167,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     y3lm=lm(y~x2)
     summary(y3lm)
 ```
+  
   +  Yes, $H_{0}: \beta_{2} =0$ can be rejected as p-value well below 0.001
 
 + 6f.
@@ -172,5 +175,57 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     shown by 6d and 6e. However, $x_{1}$ and $x_{2}$ are highly correlated. Hence once $\beta_{1}$ provided appropirate 
     weighting to $x_{1}$, adding $x_{2}$ does not introduce any additional information for better fit of y.
   
-+6g. 
++ 6g. 
 ```{r}
+    x1=c(x1, 0.1)
+    x2=c(x2, 0.8)
+    y=c(y, 6)
+    
+    y5lm=lm(y~x1+x2)
+    summary(y5lm) 
+    par(mfrow=c(2,2))
+    plot(y5lm)
+```
+  
+  + $\hat{\beta_{0}}=2.23$ 
+    $\hat{\beta_{0}}$ is a good estimator of $\beta_{0}$ as the t-value is high and low p-value.
+  
+  + $\hat{\beta_{1}}=0.54$ 
+    $\hat{\beta_{1}}$ s a poor estimator of $\beta_{1}$. t-statistic is fairly low and p-value is high
+    
+  + $\hat{\beta_{2}}=2.51$
+    $\hat{\beta_{1}}$ is not a good estimator of $\beta_{1}$. t-statistic is low and p value is just above the threshold of 
+    5%
+  
+  + Yes, $H_{0}: \beta_{1} =0$ cannot be rejected as p-value is above the cut-off of 0.05 or 5%
+  
+  + No, $H_{0}: \beta_{2} =0$ cannot be rejected as p-value is above the cut-off of 0.05 or 5%
+
+  + The new obeservation caused significant change in the estimates of $\beta_{1}$ and $\beta_{2}$. This is primarily 
+    because the new observation in $x_{2}$ is a high leverage point.
+  
+  
+```{r}
+    y6lm=lm(y~x1)
+    summary(y6lm)
+    par(mfrow=c(2,2))
+    plot(y6lm)
+```
+
+  +  Yes, $H_{0}: \beta_{1} =0$ can be rejected as p-value well below 0.001
+  
+  + The new observation in $x_{1}$ has not significantly impacted results.
+
+```{r}
+    y7lm=lm(y~x2)
+    summary(y7lm)
+    par(mfrow=c(2,2))
+    plot(y7lm)
+```
+  
+  +  Yes, $H_{0}: \beta_{2} =0$ can be rejected as p-value well below 0.001
+  + The new observation in $x_{2}$ has had minor impact on the results but nothing very significant.
+
+
+  + The new obeservation caused significant change in the estimates of $\beta_{1}$ and $\beta_{2}$ only in the case of 
+    multiple variable regression. This is primarily because the new observation in $x_{2}$ is a high leverage point.
