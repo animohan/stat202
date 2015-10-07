@@ -4,7 +4,7 @@ author: "Anish mohan"
 date: "September 29, 2015"
 output: html_document
 ---
-1. Q1
++ 1. Q1
   + 1a.  Proof
   
   + 1b. As proved, the objective function $\sum_{i,i' \in C_{k}} \sum_{j=1}^{p}\{{x_{i,j}-x_{i'j}}\}^{2}$ is equivalent to finding the sum of distances of the point from the centroid of the cluster. Now, during each iteration each point is assigned to the closest centroid, hence in each iteration the cluster of points in a class are getting closer to the centroid of the class (obtained by current set of points of class). The process continues in each iteration and we continue to reduce the distance between points that belong to the same class.
@@ -14,7 +14,7 @@ output: html_document
   
  + 1d. Inflexible model will generally perform better.
 
-2. Q2:
++ 2. Q2:
   + 2a. Regression. Inference.
 
   + 2b. Classification. Prediction
@@ -25,7 +25,7 @@ output: html_document
   
   + 2e.
          
-3. Q3
++ 3. Q3
 
   + 3a.
 ```{r}
@@ -55,7 +55,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     Data.
     
 
-4. Q4
++ 4. Q4
   + 4a. Theoretically, it is possible to have the linear regression and cubic regression to have the same or similar RSS if the true relationship is linear. The regression model for cubic (when the underlying model is linear) should give us $\beta_{2}$ and $\beta_{3}$ == 0. 
     However, since the the training data would contain noise and a cubic model would be more prone to fitting the noise, the RSS value is expected to be lower than that for linear regression model.
         
@@ -74,7 +74,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
   
   + 4d. Same as above. In general, it is difficult to give an estimation of errors without knowing the true function, however for most scenarios (with low noise) cubic model should perform better with test data if the underlying model is non linear.
   
-5. Q5
++ 5. Q5
 + 5a.
     ```{r}
   library(MASS)
@@ -114,7 +114,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     + Point #14 in Residuals vs Leverage Graph, has high leverage.
     
     
-6. Q6
++ 6. Q6
 
   + 6a. 
     Equation: $y=2+2*x_{1}+ 0.3*x_{2}$
@@ -229,3 +229,26 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
 
   + The new obeservation caused significant change in the estimates of $\beta_{1}$ and $\beta_{2}$ only in the case of 
     multiple variable regression. This is primarily because the new observation in $x_{2}$ is a high leverage point.
+
++ 7. Q7
+
+  + 7a. 
+  + Plots show the predictor-response with highest t-values
+  
+```{r}
+MA=Boston
+MAName=names(MA)
+attach(MA)
+for (i in c(9,10,13)){
+  y=MA$crim
+  x=MA[,i]
+  print(summary(lm(y~x)))
+  plot(x,y,xlab=MAName[i],ylab="Crim")
+}    
+```
+
+  + 7b.
+```{r}
+
+```
+
