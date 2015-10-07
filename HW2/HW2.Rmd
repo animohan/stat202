@@ -6,24 +6,22 @@ output: html_document
 ---
 1. # Q1
   + 1a.  Proof
+  ![Q1](Q1.jpg)
   
   + 1b. As proved, the objective function $\sum_{i,i' \in C_{k}} \sum_{j=1}^{p}\{{x_{i,j}-x_{i'j}}\}^{2}$ is equivalent to finding the sum of distances of the point from the centroid of the cluster. Now, during each iteration each point is assigned to the closest centroid, hence in each iteration the cluster of points in a class are getting closer to the centroid of the class (obtained by current set of points of class). The process continues in each iteration and we continue to reduce the distance between points that belong to the same class.
  
- + 1c.  Flexible model will generally perform better
-
-  
- + 1d. Inflexible model will generally perform better.
 
 2. # Q2:
-  + 2a. Regression. Inference.
-
-  + 2b. Classification. Prediction
-
+  + 2a. 
+     ![Q2_1](Q2_1.jpg)
+  + 2b.
+     ![Q2_2](Q2_2.jpg)
   + 2c. AB and CD are the two clusters
   
   + 2d. ABC and D are the two clusters
   
   + 2e.
+     ![Q2_3](Q2_3.jpg)
          
 3. #Q3
 
