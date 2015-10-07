@@ -41,6 +41,7 @@ for (i in c(9,10,13)){
 #12 black -9.367
 #13 lstat 11.491
 #14 medv 9.46
-
-
+attach(MA)
+MAlm=lm(crim~zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+black+lstat+medv)
+summary(MAlm)
 

@@ -4,7 +4,7 @@ author: "Anish mohan"
 date: "September 29, 2015"
 output: html_document
 ---
-+ 1. Q1
+1. # Q1
   + 1a.  Proof
   
   + 1b. As proved, the objective function $\sum_{i,i' \in C_{k}} \sum_{j=1}^{p}\{{x_{i,j}-x_{i'j}}\}^{2}$ is equivalent to finding the sum of distances of the point from the centroid of the cluster. Now, during each iteration each point is assigned to the closest centroid, hence in each iteration the cluster of points in a class are getting closer to the centroid of the class (obtained by current set of points of class). The process continues in each iteration and we continue to reduce the distance between points that belong to the same class.
@@ -14,7 +14,7 @@ output: html_document
   
  + 1d. Inflexible model will generally perform better.
 
-+ 2. Q2:
+2. # Q2:
   + 2a. Regression. Inference.
 
   + 2b. Classification. Prediction
@@ -25,7 +25,7 @@ output: html_document
   
   + 2e.
          
-+ 3. Q3
+3. #Q3
 
   + 3a.
 ```{r}
@@ -55,7 +55,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     Data.
     
 
-+ 4. Q4
+4. # Q4
   + 4a. Theoretically, it is possible to have the linear regression and cubic regression to have the same or similar RSS if the true relationship is linear. The regression model for cubic (when the underlying model is linear) should give us $\beta_{2}$ and $\beta_{3}$ == 0. 
     However, since the the training data would contain noise and a cubic model would be more prone to fitting the noise, the RSS value is expected to be lower than that for linear regression model.
         
@@ -74,20 +74,20 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
   
   + 4d. Same as above. In general, it is difficult to give an estimation of errors without knowing the true function, however for most scenarios (with low noise) cubic model should perform better with test data if the underlying model is non linear.
   
-+ 5. Q5
-+ 5a.
+5. # Q5
+  + 5a.
     ```{r}
   library(MASS)
   library(ISLR)
     autodat=Auto
     pairs(autodat)
     ```
-+ 5b.
+  + 5b.
     ```{r}
     cor(autodat[,1:8])
     ```
     
-+ 5c.
+  + 5c.
     ```{r}
     attach(autodat)
     autolm=lm(mpg~cylinders+displacement+horsepower+weight+acceleration+year+origin)
@@ -102,7 +102,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     + iii. Coefficient for the year variable is 0.75, hence it suggest that given specific values for other predictors,     
             every year the MPG increases by 0.75 unit 
       
-+ 5d. 
+  + 5d. 
     ```{r}
     par(mfrow=c(2,2))
     plot(autolm)
@@ -114,7 +114,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     + Point #14 in Residuals vs Leverage Graph, has high leverage.
     
     
-+ 6. Q6
+6. # Q6
 
   + 6a. 
     Equation: $y=2+2*x_{1}+ 0.3*x_{2}$
@@ -134,7 +134,7 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     plot(x2,x2)
 ```
 
-+ 6c. 
+  + 6c. 
 ```{r}
     ylm=lm(y~x1+x2)
     summary(ylm)
@@ -154,28 +154,28 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
   
   + No, $H_{0}: \beta_{2} =0$ cannot be rejected as p-value =0.375 is above the cut-off of 0.05 or 5%
 
-+ 6d. 
+  + 6d. 
 ```{r}
     y2lm=lm(y~x1)
     summary(y2lm)
 ```
   
-  +  Yes, $H_{0}: \beta_{1} =0$ can be rejected as p-value well below 0.001
+    +  Yes, $H_{0}: \beta_{1} =0$ can be rejected as p-value well below 0.001
 
-+ 6e. 
+  + 6e. 
 ```{r}
     y3lm=lm(y~x2)
     summary(y3lm)
 ```
   
-  +  Yes, $H_{0}: \beta_{2} =0$ can be rejected as p-value well below 0.001
+    +  Yes, $H_{0}: \beta_{2} =0$ can be rejected as p-value well below 0.001
 
-+ 6f.
+  + 6f.
     No, the results do not contradict each other. Both $x_{1}$ and $x_{2}$ individually are good predictors of y. That is 
     shown by 6d and 6e. However, $x_{1}$ and $x_{2}$ are highly correlated. Hence once $\beta_{1}$ provided appropirate 
     weighting to $x_{1}$, adding $x_{2}$ does not introduce any additional information for better fit of y.
   
-+ 6g. 
+  + 6g. 
 ```{r}
     x1=c(x1, 0.1)
     x2=c(x2, 0.8)
@@ -187,22 +187,22 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     plot(y5lm)
 ```
   
-  + $\hat{\beta_{0}}=2.23$ 
-    $\hat{\beta_{0}}$ is a good estimator of $\beta_{0}$ as the t-value is high and low p-value.
+    + $\hat{\beta_{0}}=2.23$ 
+      $\hat{\beta_{0}}$ is a good estimator of $\beta_{0}$ as the t-value is high and low p-value.
   
-  + $\hat{\beta_{1}}=0.54$ 
-    $\hat{\beta_{1}}$ s a poor estimator of $\beta_{1}$. t-statistic is fairly low and p-value is high
+    + $\hat{\beta_{1}}=0.54$ 
+      $\hat{\beta_{1}}$ s a poor estimator of $\beta_{1}$. t-statistic is fairly low and p-value is high
     
-  + $\hat{\beta_{2}}=2.51$
-    $\hat{\beta_{1}}$ is not a good estimator of $\beta_{1}$. t-statistic is low and p value is just above the threshold of 
-    5%
+    + $\hat{\beta_{2}}=2.51$
+      $\hat{\beta_{1}}$ is not a good estimator of $\beta_{1}$. t-statistic is low and p value is just above the threshold 
+      of 5%
+    
+    + Yes, $H_{0}: \beta_{1} =0$ cannot be rejected as p-value is above the cut-off of 0.05 or 5%
+    
+    + No, $H_{0}: \beta_{2} =0$ cannot be rejected as p-value is above the cut-off of 0.05 or 5%
   
-  + Yes, $H_{0}: \beta_{1} =0$ cannot be rejected as p-value is above the cut-off of 0.05 or 5%
-  
-  + No, $H_{0}: \beta_{2} =0$ cannot be rejected as p-value is above the cut-off of 0.05 or 5%
-
-  + The new obeservation caused significant change in the estimates of $\beta_{1}$ and $\beta_{2}$. This is primarily 
-    because the new observation in $x_{2}$ is a high leverage point.
+    + The new obeservation caused significant change in the estimates of $\beta_{1}$ and $\beta_{2}$. This is primarily 
+      because the new observation in $x_{2}$ is a high leverage point.
   
   
 ```{r}
@@ -212,9 +212,9 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     plot(y6lm)
 ```
 
-  +  Yes, $H_{0}: \beta_{1} =0$ can be rejected as p-value well below 0.001
-  
-  + The new observation in $x_{1}$ has not significantly impacted results.
+    +  Yes, $H_{0}: \beta_{1} =0$ can be rejected as p-value well below 0.001
+    
+    + The new observation in $x_{1}$ has not significantly impacted results.
 
 ```{r}
     y7lm=lm(y~x2)
@@ -223,32 +223,130 @@ plot(HC_ScaledArrests_Complete, main ="US Scaled Arrests-Complete Linkage",xlab=
     plot(y7lm)
 ```
   
-  +  Yes, $H_{0}: \beta_{2} =0$ can be rejected as p-value well below 0.001
-  + The new observation in $x_{2}$ has had minor impact on the results but nothing very significant.
+    +  Yes, $H_{0}: \beta_{2} =0$ can be rejected as p-value well below 0.001
+    + The new observation in $x_{2}$ has had minor impact on the results but nothing very significant.
+  
+  
+    + The new obeservation caused significant change in the estimates of $\beta_{1}$ and $\beta_{2}$ only in the case of 
+      multiple variable regression. This is primarily because the new observation in $x_{2}$ is a high leverage point.
 
-
-  + The new obeservation caused significant change in the estimates of $\beta_{1}$ and $\beta_{2}$ only in the case of 
-    multiple variable regression. This is primarily because the new observation in $x_{2}$ is a high leverage point.
-
-+ 7. Q7
+7. # Q7
 
   + 7a. 
-  + Plots show the predictor-response with highest t-values
-  
+    + Plots show the predictor-response for top 3 t-values. Note that all the following variables have low p-values: 
+      Zn,Indus,Nox,Rm,Age,Dis,Rad, Tax, Ptration, Black, Lstat and Medv, but plots have been only included for the lowest 3 
+      p-values
+    
 ```{r}
-MA=Boston
-MAName=names(MA)
-attach(MA)
-for (i in c(9,10,13)){
-  y=MA$crim
-  x=MA[,i]
-  print(summary(lm(y~x)))
-  plot(x,y,xlab=MAName[i],ylab="Crim")
-}    
+      MA=Boston
+      MAName=names(MA)
+      attach(MA)
+      for (i in c(9,10,13)){
+        y=MA$crim
+        x=MA[,i]
+        print(paste0("Predictor=", MAName[i]))
+        print(summary(lm(y~x)))
+        plot(x,y,xlab=MAName[i],ylab="Crim")
+    }    
 ```
 
   + 7b.
 ```{r}
-
+attach(MA)
+MAlm=lm(crim~zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+black+lstat+medv)
+summary(MAlm)
 ```
 
+  + We can reject the Hypothesis $H_{0}:\beta_{j}=0$ for the following predictors because they have p-value<0.005: Dis, Rad,     medv
+
+  + 7c. 
+    + In 7a. there were more variables with p-values<0.005: E.g Zn,Indus,Nox,Rm,Age,Dis,Rad, Tax, Ptration, Black, Lstat and        Medv. However in 7b, only 3 variables (Rad, Dis, Medv) have p-values<0.005
+
+```{r}
+      MA_coeff=matrix(0,14,3)
+      MA_coeff[,1]=names(MA)
+      for (i in c(2:14)){
+        y=MA$crim
+        x=MA[,i]
+        templm=lm(y~x)
+        temp=summary(templm)
+        MA_coeff[i,2]=temp$coefficients[2,1]
+      }
+      
+      S=summary(MAlm)
+      str(S)
+      MA_coeff[2:14,3]=S$coefficients[2:14,2]
+      plot(MA_coeff[2:14,2],MA_coeff[2:14,3],xlab="Univariate coefficients", ylab="Multivariate coefficients")
+```
+
+  + 7d. 
+
+```{r}
+      for (i in c(2:14)){
+        y=MA$crim
+        x=MA[,i]
+        print(paste0("Predictor=", MAName[i]))
+        print(summary(lm(y~x+I(x^2)+I(x^3))))
+    }    
+```
+    
+    + Analyzing the summary tables, there seems to be non-linear relationship between "Crim" and the following predictors as       p-values for $\beta_{0}, \beta_{1}, \beta_{2}$ are <0.005 : Indus, Nox, Dis, Medv
+
+
+8. #Q8
++ 8_1 
+```{r}
+  in_training_features=read.csv("training_features.csv")
+        
+  feature.names<-names(in_training_features)
+    for(feature.name in feature.names[-1]){
+      dummy_name<-paste0("is.na.",feature.name)
+      is.na.feature <-is.na(in_training_features[,feature.name])
+      in_training_features[,dummy_name]<-as.integer(is.na.feature)
+      in_training_features[is.na.feature,feature.name]<-median(in_training_features[,feature.name], na.rm=TRUE)
+    }
+  
+  newset=in_training_features[in_training_features$subject.id!=525450,]
+  newset2=newset[,c("q1_speech.slope", "q2_salivation.slope", "q3_swallowing.slope", "q4_handwriting.slope", "q5a_cutting_without_gastrostomy.slope", "q6_dressing_and_hygiene.slope", "q7_turning_in_bed.slope", "q8_walking.slope", "q9_climbing_stairs.slope")]
+```
+
+  + 8_2
+```{r}
+    pca_set2=prcomp(newset2,scale=TRUE)
+    var_set2=pca_set2$sdev^2
+    prop_var_set2=var_set2/sum(var_set2)
+    plot(cumsum(prop_var_set2),xlab="Principal Component",ylab="Cumulative Proportion of Variance Explained", ylim=c(0,1),type='b')
+```
+
+    + About 34% of the cumulative variance is captured by the top 2 Principal   
+      Components
+
++ 8_3
+```{r}
+   biplot(pca_set2, scale=0,cex=0.6) 
+```
+
+  + There seems to be 2 sets of correlated vectors/dimensions:
+      + Set 1: q9_climbing_stairs.slope, q7_turning_in_bed.slope, q6_dressing_and_hygiene.slope and q8_walking.slope are 1 set of correlated vectors
+      
+      + Set 2: q4_handwriting.slope,q5a_cutting_without_gastrostomy.slope,q1_speech.slope,q3_swallowing.slope and q2_salivation.slope are 2nd set of correlated vectors/dimentions.
+
+
++ 8_4
+```{r}
+    newset3=in_training_features[,c("q1_speech.slope", "q2_salivation.slope", "q3_swallowing.slope", "q4_handwriting.slope", "q5a_cutting_without_gastrostomy.slope", "q6_dressing_and_hygiene.slope", "q7_turning_in_bed.slope", "q8_walking.slope", "q9_climbing_stairs.slope")]
+    
+    pca_set3=prcomp(newset3,scale=TRUE)
+      var_set3=pca_set3$sdev^2
+      prop_var_set3=var_set3/sum(var_set3)
+      plot(cumsum(prop_var_set3),xlab="Principal Component (with subject ID: 525450 included)",ylab="Cumulative Proportion of Variance Explained", ylim=c(0,1),type='b')
+      
+    biplot(pca_set3, scale=0,cex=0.6) 
+```
+
+    + There is significant change in the directions or certain dimension vectors e.g q3_swallowing.slope and q_handrwriting.slope. This is because Datapoint with subject ID: 525450 adds new/extreme values to these variables. For example q3_swallowing.slope value for the above subject iD was -10.14556 where as in the previous data set the miniumum value was -3.804583. Hence the new entry significantly changed the value/direction of the vector.
+    
+    Similarly, the q4_handwriting.slope for subject ID: 525450 is 10.14556. This is 3 times the next maximum value in the dataset which was 3.804583. Hence adding this extreme value change the direction of the q4_handwriting.slope.
+    
+   This is a good case of detecting outliers/leverage points and removing this from the data set.
+  
