@@ -1,0 +1,29 @@
+---
+title: "HW3"
+author: "Anish Mohan"
+date: "October 9, 2015"
+output: html_document
+---
+
+1. #Q1
+  + Q1a:
+    For p=1, on an average we will be able to use 10% of the observations.
+  
+  + Q1b:
+    For p=2, we will be able to use $(0.1)^{2}/Area$. That is equivalent to 0.01/1=1% of the observations
+
+  
+  + Q1c.
+      For p=100, we will be able to use $(0.1)^{100}/Area$. That is equivalent to $(0.1^{100}/(1*1)=(10)^{-100}$=$(10)^{-98}$% of available observations
+  
+  + Q1d.
+    As shown with p=1,2 and 100, as # of features/dimensions increase, the # of available observations in the immediate vicinity of the points decrease. This decrease is exponential in nature. Hence, we find that neighbors in higher dimensions are more spread-out, therefore impacting the results we get from K-Nearest Neighbor (KNN) algorithm.
+    
+  + Q13
+    To ensure that we get 10% of the observations for
+    + p=1: We will need 10% of the area i.e 0.5 units on both sides of the point.
+    + p=2: We have $s^{2}=0.1$, hence s=side of hypercube=0.3 i.e we need each side to be 30% of a unit square to capture 10% of the data
+    + p=100: We have $s^{100}=0.1$, hence side of hypercube is 0.977 ie. we need each side to to be 97.7% of the hypercube that contains data to capture 10% of the data i.e almost the entire dataspace has to be selected to get 10% of the uniformly distributed data.
+    + As the dimensions/feature space increase, the concept of the nearest neighbor gets muddled. As in the case of 100 dimensional hypercube, we had to span almost the entire dataspace to just get 10% of the point. These 10% of nearest neighbors and are not near anymore.
+    
+    
