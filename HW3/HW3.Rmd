@@ -19,11 +19,129 @@ output: html_document
   + Q1d.
     As shown with p=1,2 and 100, as # of features/dimensions increase, the # of available observations in the immediate vicinity of the points decrease. This decrease is exponential in nature. Hence, we find that neighbors in higher dimensions are more spread-out, therefore impacting the results we get from K-Nearest Neighbor (KNN) algorithm.
     
-  + Q13
+  + Q1e
     To ensure that we get 10% of the observations for
     + p=1: We will need 10% of the area i.e 0.5 units on both sides of the point.
     + p=2: We have $s^{2}=0.1$, hence s=side of hypercube=0.3 i.e we need each side to be 30% of a unit square to capture 10% of the data
     + p=100: We have $s^{100}=0.1$, hence side of hypercube is 0.977 ie. we need each side to to be 97.7% of the hypercube that contains data to capture 10% of the data i.e almost the entire dataspace has to be selected to get 10% of the uniformly distributed data.
     + As the dimensions/feature space increase, the concept of the nearest neighbor gets muddled. As in the case of 100 dimensional hypercube, we had to span almost the entire dataspace to just get 10% of the point. These 10% of nearest neighbors and are not near anymore.
     
+
+2. #Q2
+  + Q2a.
     
+    $P(x)=\frac{e^{\beta_{0}+\beta_{1}*X_{1}+\beta_2*X_{2}}}{(1+e^{\beta_{0}+\beta_{1}*X_{1}+\beta_2*X_{2}})}$
+         $=\frac{e^(-6+0.05*40+1*3.5)}{(1+e^(-6+0.05*40+1*3.5))}$
+       
+    ```{r}
+    exp(-6+0.05*40+1*3.5)/(1+exp(-6+0.05*40+1*3.5))
+    ```
+
+      Probability of A=37.7%
+      
+      
+      
+  + Q2b.  
+    $P(x)=0.5,X_{2}=3.5,x_{1}=?$
+    
+    $\log(\frac{P(x)}{1+P(x)})=\beta_{0}+\beta_{1}*X_{1}+\beta_2*X_{2}$
+    
+    $X_{1}=\frac{log(1)-\beta{0}+\beta_{2}*X_{2}}{\beta_{1}}$
+    
+    ```{r}
+    (log(1)+6-3.5)/0.05
+    ```
+   
+      Student has to study 50 hours to have a 50% probability of getting an A.
+ 
+
+3. #Q3
+  + Choose logistic regression
+  + KNN with K=1 has a 0 error in the training set, hence the all the errors were probably reported on the test data set. Hence error on test =36%
+  + Logistic Regression has a lower error in the test set and does not have a problem of overfitting in this example.
+  
+
+4. #Q4
+  + 4a.
+    ```{r}
+    library(ISLR)
+    weekly=Weekly
+    attach(weekly)
+    summary(weekly)
+    cor(weekly[,-9])
+    pairs(weekly)
+    ```
+      
+      + There are hardly any correlations between the variables. Year and Volume are the only variables that seem to have some significan correlation
+
+  + 4b.
+    ```{r}
+    log_reg=glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=weekly,family=binomial)
+    summary(log_reg)
+    ```
+    
+    + Only Lag2 has results below the p-value of 0.05 and hence appears to be statistically significant
+
+  + 4c. 
+    ```{r}
+    log_reg_prob=predict(log_reg, type="response")
+    log_reg_pred=rep("Down",1089)
+    log_reg_pred[log_reg_prob>0.5]="Up"
+    table(log_reg_pred,Direction)
+    ```
+  
+    + From the confusion matrix:
+      + ~56% ((54+557)/1089) of time the model predicts the output correctly 
+      +  Model has significant prediction errors when the Direction is going Dow.. Of the 484 times, the direction was down, the model could only predict it correctly 54/484~11%. There was 89% prediction error.
+      + When the direction was up, the model could predict with a reasonable accuracy of 92%.
+      + This model overestimates when the market is going the down direction, but does well when the market is in the up direction.
+      
+  + 4d.
+    ```{r}
+    train=(Year<2009)
+    weekly.2009=weekly[!train,]
+    Direction.2009=Direction[!train]
+    
+    limlog_reg=glm(Direction~Lag2,data=weekly, family=binomial,subset=train)
+    limlog_reg_probs=predict(limlog_reg,weekly.2009,type="response")
+    limlog_reg_pred=rep("Down",104)
+    limlog_reg_pred[limlog_reg_probs>0.5]="Up"
+    table(limlog_reg_pred,Direction.2009)
+    ```
+ 
+    + 62.5% ((56+9)/104) predictions were made correctly.
+  
+  + 4e.
+    ```{r}
+    limlda_fit=lda(Direction~Lag2,data=weekly,subset=train)
+    limlda_fit
+    limlda_pred=predict(limlda_fit,weekly.2009)
+    limlda_class=limlda_pred$class
+    table(limlda_class,Direction.2009)
+    ```
+  
+    + 62.5% ((56+9)/104) predictions were made correctly.
+    
++ 4f. 
+    ```{r}
+    limqda_fit=qda(Direction~Lag2,data=weekly,subset=train)
+    limqda_fit
+    limqda_class=predict(limqda_fit,weekly.2009)$class
+    table(limqda_class,Direction.2009)
+    ```
+    
+    + 58.6% (61/104) predictions were made correctly.
+
++ 4g.
+
+    ```{r}
+    library(class)
+    train.X=cbind(Lag1)[train,]
+    test.X=cbind(Lag1)[!train,]
+    train.Direction=Direction[train]
+    set.seed(1)
+    knn.pred=knn(data.frame(train.X), data.frame(test.X), train.Direction, k=1)
+    table(knn.pred,Direction.2009)
+    ```
+    
+     + 45.2% (47/104) predictions were made correctly.
