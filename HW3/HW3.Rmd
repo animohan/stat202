@@ -1,7 +1,7 @@
 ---
 title: "HW3"
 author: "Anish Mohan"
-date: "October 9, 2015"
+date: "October 14, 2015"
 output: pdf_document
 ---
 
@@ -168,6 +168,14 @@ output: pdf_document
 
 5. #Q5
     + 5.5
+    Added following code to ScrapeRoster function
+    
+        weightCol = row.find('td',attrs={'class':'weight'})
+        if weightCol==None:
+            entry['weight'] = np.nan
+        else:
+            entry['weight'] = weightCol.contents[0].strip()
+    
     
     Modified rosters.csv is created from python
     
