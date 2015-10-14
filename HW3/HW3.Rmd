@@ -22,7 +22,7 @@ output: html_document
   + Q1e
     To ensure that we get 10% of the observations for
     + p=1: We will need 10% of the area i.e 0.5 units on both sides of the point.
-    + p=2: We have $s^{2}=0.1$, hence s=side of hypercube=0.3 i.e we need each side to be 30% of a unit square to capture 10% of the data
+    + p=2: We have $s^{2}=0.1$, hence s=side of hypercube=$\sqrt{0.1}=0.3$ i.e we need each side to be 30% of a unit square to capture 10% of the data
     + p=100: We have $s^{100}=0.1$, hence side of hypercube is 0.977 ie. we need each side to to be 97.7% of the hypercube that contains data to capture 10% of the data i.e almost the entire dataspace has to be selected to get 10% of the uniformly distributed data.
     + As the dimensions/feature space increase, the concept of the nearest neighbor gets muddled. As in the case of 100 dimensional hypercube, we had to span almost the entire dataspace to just get 10% of the point. These 10% of nearest neighbors and are not near anymore.
     
@@ -105,7 +105,7 @@ output: html_document
     limlog_reg=glm(Direction~Lag2,data=weekly, family=binomial,subset=train)
     limlog_reg_probs=predict(limlog_reg,weekly.2009,type="response")
     limlog_reg_pred=rep("Down",104)
-    limlog_reg_pred[limlog_reg_probs>0.5]="Up"
+    limlog_reg_pred[limlog_reg_probs>0.50]="Up"
     table(limlog_reg_pred,Direction.2009)
     ```
  
@@ -113,6 +113,7 @@ output: html_document
   
   + 4e.
     ```{r}
+    library(MASS)
     limlda_fit=lda(Direction~Lag2,data=weekly,subset=train)
     limlda_fit
     limlda_pred=predict(limlda_fit,weekly.2009)
@@ -122,26 +123,105 @@ output: html_document
   
     + 62.5% ((56+9)/104) predictions were made correctly.
     
-+ 4f. 
+  + 4f. 
     ```{r}
-    limqda_fit=qda(Direction~Lag2,data=weekly,subset=train)
-    limqda_fit
-    limqda_class=predict(limqda_fit,weekly.2009)$class
-    table(limqda_class,Direction.2009)
+      limqda_fit=qda(Direction~Lag2,data=weekly,subset=train)
+      limqda_fit
+      limqda_class=predict(limqda_fit,weekly.2009)$class
+      table(limqda_class,Direction.2009)
     ```
     
     + 58.6% (61/104) predictions were made correctly.
 
-+ 4g.
+  + 4g.
 
     ```{r}
-    library(class)
-    train.X=cbind(Lag1)[train,]
-    test.X=cbind(Lag1)[!train,]
-    train.Direction=Direction[train]
-    set.seed(1)
-    knn.pred=knn(data.frame(train.X), data.frame(test.X), train.Direction, k=1)
-    table(knn.pred,Direction.2009)
+      library(class)
+      train.X=cbind(Lag1)[train,]
+      test.X=cbind(Lag1)[!train,]
+      train.Direction=Direction[train]
+      set.seed(1)
+      knn.pred=knn(data.frame(train.X), data.frame(test.X), train.Direction, k=1)
+      table(knn.pred,Direction.2009)
     ```
     
      + 45.2% (47/104) predictions were made correctly.
+
+
+  + 4h
+    Logistic Regression and Linear Discriminant Analysis provides the best results for this dataset.
+
+
+  + 4i
+    + Did the following experiments:
+        + Logistic Regression and LDA
+          + Tried various combination of input predictors
+        + Changed the value of threshold = 0.5 for marking 'Direction as Up'
+      + QDA
+          + Tried various combination of input predictors
+      + KNN
+         + Tried with different number of neighbors.
+     + Best result continues to be LDA with 0.5 threshold for the probability.
+    ```{r}
+        table(limlda_class,Direction.2009)
+    ```
+
+5. #Q5
+    + 5.5
+    
+    Modified rosters.csv is created from python
+    
+    ```{r}
+      athletes=read.csv("rosters.csv")
+    ```
+    
+  + 5.6
+  
+    ```{r}
+      library(nnet)
+      library(ggplot2)
+      attach(athletes)
+      athlete.fit=multinom(sport~height+weight)
+    ```
+        
+  + 5.7
+
+    ```{r}
+      qplot(weight,height,colour=sport)
+    ```
+    
+  + 5.8
+
+    ```{r}
+    athlete.pred=predict(athlete.fit,athletes["sport"])
+    ```
+   
+
+  
+  + 5.9
+```{r}
+    var=c(3,7)
+    pred_athlete_list=athletes[,var]
+```
+```{r, eval=FALSE}
+    cbind(pred_athlete_list,athlete.pred)
+```
+```{r}
+    qplot(pred_athlete_list$weight,pred_athlete_list$height,colour=athlete.pred)
+```
+  
+  + 5.10
+  
+```{r}
+    athlete_actual=unlist(athletes["sport"])  
+    athlete_predicted=unlist(athlete.pred)
+    table(athlete_predicted,athlete_actual)
+```
+
+    +  Based on the confusion matrix, here are the error rates
+      +   Baseball =  0.75 (1-1/4)
+      +   Basketball = 0.3 (1-7/10)
+      +   Football = 0.328 (1-84/125)
+      +   Soccer= 0.625 (1-12/32)
+      +   Tennis = 1 (1-0/2)
+      +   Wrestling = 0.548 (1-14/31)

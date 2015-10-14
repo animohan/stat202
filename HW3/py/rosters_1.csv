@@ -1,0 +1,361 @@
+,gender,height,homestate,name,sport
+0,male,70.0,LA,"Alexander, Terrence",Football
+1,male,75.0,OR,"Alfieri, Joey",Football
+2,male,76.0,CA,"Anderson, Kevin",Football
+3,male,76.0,Other,"Annan, Wesley",Football
+4,male,75.0,SC,"Arcega-Whiteside, JJ",Football
+5,male,78.0,CO,"Austin, Brendon",Football
+6,male,74.0,CA,"Bailey, Jake",Football
+7,male,75.0,UT,"Barton, Sean",Football
+8,male,74.0,CA,"Beall, Charlie",Football
+9,male,73.0,CA,"Beecher, Ryan",Football
+10,male,71.0,WA,"Branch, Mustafa",Football
+11,male,71.0,WA,"Brandt-Sims, Isaiah",Football
+12,male,77.0,CA,"Bright, David",Football
+13,male,74.0,CA,"Buncom, Frank",Football
+14,male,70.0,IL,"Burik, Lewis",Football
+15,male,76.0,FL,"Burkett, Jesse",Football
+16,male,77.0,VA,"Burns, Ryan",Football
+17,male,76.0,NY,"Cajuste, Devon",Football
+18,male,76.0,IL,"Caspers, Johnny",Football
+19,male,74.0,NC,"Chaffin, Brian",Football
+20,male,74.0,WA,"Chandler, Calvin",Football
+21,male,77.0,CA,"Chryst, Keller",Football
+22,male,78.0,ID,"Cotton, Eric",Football
+23,male,76.0,TX,"Crane, Conner",Football
+24,male,79.0,MN,"Davidson, Nick",Football
+25,male,76.0,FL,"Davis, Noor",Football
+26,male,80.0,CA,"Dreyer, Jack",Football
+27,male,72.0,FL,"Edwards, Ben",Football
+28,male,75.0,UT,"Fanaika, Brandon",Football
+29,male,73.0,ID,"Foster, Treyvion",Football
+30,male,72.0,GA,"Franklin, Denzel",Football
+31,male,70.0,CA,"Gaertner, Ryan",Football
+32,male,77.0,WA,"Garnett, Joshua",Football
+33,male,77.0,AZ,"Hall, A.T.",Football
+34,male,76.0,TX,"Harrell, Chris",Football
+35,male,70.0,GA,"Harris, Ronnie",Football
+36,male,76.0,MA,"Hinds, Lucas",Football
+37,male,76.0,VA,"Hogan, Kevin",Football
+38,male,74.0,CA,"Holder, Alijah",Football
+39,male,76.0,CA,"Hooper, Austin",Football
+40,male,74.0,CA,"Irwin, Trenton",Football
+41,male,78.0,TN,"Jackson, Dylan",Football
+42,male,72.0,CA,"Jones, Craig",Football
+43,male,71.0,TX,"Jordan, Dontonio",Football
+44,male,75.0,NC,"Kalambayi, Peter",Football
+45,male,79.0,HI,"Kaumatule, Luke",Football
+46,male,75.0,AZ,"Keller, C.J.",Football
+47,male,71.0,CA,"Krishnamurthi, Sidhart",Football
+48,male,75.0,UT,"Lloyd, Dallas",Football
+49,male,75.0,MO,"Lohn, Nate",Football
+50,male,70.0,NC,"Love, Bryce",Football
+51,male,77.0,CA,"Maihen, Austin",Football
+52,male,74.0,AZ,"Martinez, Blake",Football
+53,male,74.0,CA,"Marx, Daniel",Football
+54,male,72.0,CO,"McCaffrey, Christian",Football
+55,male,70.0,MN,"McFadden, Pat",Football
+56,male,74.0,CA,"Meeks, Quenton",Football
+57,male,74.0,CA,"Miller, Reed",Football
+58,male,71.0,MD,"Murphy, Alameen",Football
+59,male,79.0,CA,"Murphy, Kyle",Football
+60,male,75.0,CA,"Okereke, Bobby",Football
+61,male,75.0,CA,"Owusu, Francis",Football
+62,male,74.0,CA,"Palma, Kevin",Football
+63,male,74.0,CA,"Perez, Jordan",Football
+64,male,76.0,NE,"Phillips, Harrison",Football
+65,male,74.0,GA,"Pippens, Ra'Chard",Football
+66,male,73.0,WA,"Rector, Michael",Football
+67,male,73.0,LA,"Reid, Justin",Football
+68,male,72.0,GA,"Robinson, Alex",Football
+69,male,74.0,MN,"Rotto, Torsten",Football
+70,male,70.0,OK,"Sanders, Barry",Football
+71,male,76.0,OR,"Scarlett, Brennan",Football
+72,male,73.0,OR,"Scarlett, Cameron",Football
+73,male,78.0,UT,"Schultz, Dalton",Football
+74,male,75.0,CA,"Shittu, Aziz",Football
+75,male,75.0,WA,"Shober, Sam",Football
+76,male,76.0,TN,"Shuler, Graham",Football
+77,male,72.0,TX,"Simmons, Brandon",Football
+78,male,76.0,NV,"Snyder, Ben",Football
+79,male,76.0,NV,"Stallworth, Rollins",Football
+80,male,77.0,GA,"Taboada, Greg",Football
+81,male,75.0,TX,"Thomas, Solomon",Football
+82,male,70.0,LA,"Thomas, Taijuan",Football
+83,male,76.0,CA,"Toohill, Casey",Football
+84,male,78.0,AZ,"Tucker, Casey",Football
+85,male,68.0,LA,"Tyler, Jay",Football
+86,male,77.0,OH,"Tyler, Mike",Football
+87,male,73.0,CA,"Ukropina, Conrad",Football
+88,male,78.0,AZ,"Veach, Lane",Football
+89,male,77.0,GA,"Watkins, Jordan",Football
+90,male,74.0,CA,"Whitfield, Kodi",Football
+91,male,75.0,OH,"Williams, Reagan",Football
+92,male,75.0,GA,"Wilson, Nick",Football
+93,male,69.0,IN,"Wright, Remound",Football
+94,male,74.0,MA,"Yules, Sam",Football
+95,male,71.0,Other,"Badhwar, Viraat",Golf
+96,male,70.0,Other,"Boote, David",Golf
+97,male,75.0,WA,"Francks, Dominick",Golf
+98,male,68.0,CA,"Huang, Franklin",Golf
+99,male,73.0,CA,"Knox, Bradley",Golf
+100,male,73.0,CA,"McNealy, Maverick",Golf
+101,male,72.0,IA,"Swegle, Jeffrey",Golf
+102,male,68.0,CA,"Abdelghany, Tarek",Swimming & Diving
+103,male,76.0,AZ,"Anderson, Matt",Swimming & Diving
+104,male,72.0,CO,"Arata, Ryan",Swimming & Diving
+105,male,78.0,IL,"Black, Connor",Swimming & Diving
+106,male,76.0,Other,"Brown, Christian",Swimming & Diving
+107,male,76.0,Other,"Buck, Justin",Swimming & Diving
+108,male,71.0,TX,"Christensen, Bradley",Swimming & Diving
+109,male,75.0,CA,"Cogswell, Cole",Swimming & Diving
+110,male,74.0,NY,"Conaton, Patrick",Swimming & Diving
+111,male,75.0,CA,"DesCombes, Jack",Swimming & Diving
+112,male,74.0,CA,"DeShon, Spencer",Swimming & Diving
+113,male,74.0,WA,"DeVine, Abrahm",Swimming & Diving
+114,male,71.0,PA,"Dudzinski, Ryan",Swimming & Diving
+115,male,75.0,FL,"Duggan, Sean",Swimming & Diving
+116,male,74.0,MA,"Egan, Liam",Swimming & Diving
+117,male,76.0,CO,"Garnier, Jeff",Swimming & Diving
+118,male,72.0,PA,"Kuremsky, Connor",Swimming & Diving
+119,male,71.0,NC,"Le, Daniel",Swimming & Diving
+120,male,71.0,CA,"Liang, Andrew",Swimming & Diving
+121,male,69.0,CA,"Miclau, Ted",Swimming & Diving
+122,male,73.0,CA,"Ogren, Curtis",Swimming & Diving
+123,male,71.0,FL,"Olmsted, Wesley",Swimming & Diving
+124,male,72.0,Other,"Perry, Sam",Swimming & Diving
+125,male,73.0,IL,"Thomson, Danny",Swimming & Diving
+126,male,73.0,TX,"Umbach, Gray",Swimming & Diving
+127,male,70.0,MI,"Walsh, Jack",Swimming & Diving
+128,male,74.0,KY,"Williamson, Maxwell",Swimming & Diving
+129,male,72.0,GA,"Yoder, Jimmy",Swimming & Diving
+130,male,76.0,NJ,"Zdroik, Brad",Swimming & Diving
+131,male,69.0,MA,"Cannistraro, J.P.",Sailing
+132,male,70.0,CT,"Clarida, Russell",Sailing
+133,male,72.0,NY,"Eenkema van Dijk, Reinier",Sailing
+134,male,70.0,CA,"La Dow, Will",Sailing
+135,male,73.0,MA,"Marshall, William",Sailing
+136,male,75.0,FL,"Muller, Luke",Sailing
+137,male,75.0,TX,"Ron, Daniel",Sailing
+138,male,70.0,CA,"Screve, Antoine",Sailing
+139,male,68.0,FL,"Sly, Axel",Sailing
+140,male,73.0,CA,"Aman, Stephen",Fencing
+141,male,69.0,CT,"Beam, David",Fencing
+142,male,70.0,CA,"Cornman, Andre",Fencing
+143,male,69.0,AZ,"Howell, Steven",Fencing
+144,male,69.0,NJ,"Lee, Jonathan",Fencing
+145,male,69.0,NJ,"Lee, Justin",Fencing
+146,male,71.0,IL,"MacRae, Harrison",Fencing
+147,male,68.0,Other,"Manson, James",Fencing
+148,male,75.0,CA,"Massialas, Alexander",Fencing
+149,male,73.0,CA,"Mei, Darren",Fencing
+150,male,70.0,CA,"Riviere, Ben",Fencing
+151,male,70.0,CA,"Riviere, Paul",Fencing
+152,male,71.0,OR,"Spear, Logan",Fencing
+153,male,70.0,CA,"Stayner, John",Fencing
+154,male,71.0,GA,"Wolfson, Daniel",Fencing
+155,male,76.0,PA,"Alecxih, Landon",Rowing
+156,male,75.0,Other,"Barakat, Alex",Rowing
+157,male,74.0,Other,"Cirenza, John",Rowing
+158,male,75.0,Other,"Cserepy, Nico",Rowing
+159,male,76.0,WA,"Fagan, Kendall",Rowing
+160,male,77.0,PA,"Freundlich, Max",Rowing
+161,male,71.0,NE,"Glazer, Grant",Rowing
+162,male,75.0,TX,"Grace, Jim",Rowing
+163,male,72.0,FL,"Hails, Ryan",Rowing
+164,male,74.0,MD,"Holmvik, Erik",Rowing
+165,male,74.0,GA,"Larkin, Brendan",Rowing
+166,male,77.0,RI,"McMahon, Wills",Rowing
+167,male,75.0,GA,"Means, Grant",Rowing
+168,male,76.0,CA,"Merrilees Paiva, Andrew",Rowing
+169,male,67.0,FL,"Morris, Isabelle",Rowing
+170,male,74.0,PA,"O'Rourke, Ryan",Rowing
+171,male,73.0,OR,"Obletz, Nick",Rowing
+172,male,74.0,CA,"Ostrow, Robbie",Rowing
+173,male,74.0,CA,"Park, Matthew",Rowing
+174,male,62.0,AZ,"Qayumi, Ariana",Rowing
+175,male,75.0,CA,"Reitz, Allen",Rowing
+176,male,74.0,NV,"Robison, Konner",Rowing
+177,male,64.0,CA,"Sanders, Ardsley",Rowing
+178,male,74.0,CT,"Skolds, Max",Rowing
+179,male,77.0,WA,"Spencer, Will",Rowing
+180,male,76.0,CA,"Stefani, Jovanni",Rowing
+181,male,79.0,CA,"Sullivan, Sean-Patrick",Rowing
+182,male,76.0,Other,"Walker, Charlie",Rowing
+183,male,64.0,MD,"Weiss, Nathalie",Rowing
+184,male,72.0,Other,"Wessendorf, Karl",Rowing
+185,male,77.0,Other,"Wilcockson, Misha",Rowing
+186,male,69.0,MO,"Wolk, Greg",Rowing
+187,male,77.0,TX,"Wood, Peter",Rowing
+217,male,76.0,KS,"Butler, Nathan",Wrestling
+218,male,69.0,Other,"Calvo, Nainoa",Wrestling
+219,male,64.0,CA,"Cramer, Eric",Wrestling
+220,male,72.0,CA,"Davies, Ryan",Wrestling
+221,male,69.0,CT,"Dempsey, Walker",Wrestling
+222,male,72.0,VA,"DePasquale, Cole",Wrestling
+223,male,71.0,OR,"Fleming, Boomer",Wrestling
+224,male,69.0,CA,"Flores, Austin",Wrestling
+225,male,69.0,NV,"Fox, Paul",Wrestling
+226,male,70.0,MD,"Galli, Peter",Wrestling
+227,male,67.0,IL,"Garelli, Matt",Wrestling
+228,male,70.0,CA,"Hvolbek, Maxwell",Wrestling
+229,male,72.0,OH,"Kimbrell, Thomas",Wrestling
+230,male,72.0,CO,"Krohn, Garet",Wrestling
+231,male,65.0,CA,"Locsin, Isaiah",Wrestling
+232,male,73.0,CA,"Loza, Jesus",Wrestling
+233,male,72.0,MO,"Maly, Cody",Wrestling
+234,male,73.0,IL,"Marchok, Josh",Wrestling
+235,male,65.0,NJ,"McKenna, Joey",Wrestling
+236,male,73.0,CA,"Morris, Dylan",Wrestling
+237,male,75.0,CA,"Morris, Nathan",Wrestling
+238,male,72.0,CA,"Nevills, Zach",Wrestling
+239,male,66.0,IL,"Pawelski, Tommy",Wrestling
+240,male,66.0,CA,"Pengilly, Mason",Wrestling
+241,male,74.0,OR,"Rasmussen, Trevor",Wrestling
+242,male,66.0,IL,"Rossi, Brian",Wrestling
+243,male,67.0,OR,"Russo, Peter",Wrestling
+244,male,64.0,PA,"Schram, Connor",Wrestling
+245,male,74.0,PA,"Showunmi, David",Wrestling
+246,male,62.0,MD,"Silver, Evan",Wrestling
+247,male,74.0,IL,"Sojka, Michael",Wrestling
+248,male,68.0,CA,"Subjeck, Keaton",Wrestling
+249,male,69.0,CA,"Wilson, Jim",Wrestling
+250,male,69.0,FL,"Dagostino, Kyle",Volleyball
+251,male,80.0,WI,"Kaminski, Conrad",Volleyball
+252,male,79.0,HI,"Vega, Gabriel",Volleyball
+253,male,73.0,VA,"Dervay, Russell",Volleyball
+254,male,80.0,CA,"Shaw, James",Volleyball
+255,male,78.0,CA,"Stephanus, Alex",Volleyball
+256,male,74.0,Other,"Enriques, Evan",Volleyball
+257,male,77.0,FL,"Moore, Chris",Volleyball
+258,male,76.0,CA,"Ewert, Jordan",Volleyball
+259,male,84.0,CA,"Rakestraw, Kevin",Volleyball
+260,male,78.0,TX,"Smith, Ryan",Volleyball
+261,male,78.0,WI,"Klassen, Matt",Volleyball
+262,male,75.0,CA,"Hayden, Madison",Volleyball
+263,male,75.0,CA,"McCall, Colin",Volleyball
+264,male,74.0,CA,"Stuebner, Jake",Volleyball
+265,male,76.0,TX,"Sanders, Christian",Basketball 
+266,male,74.0,CA,"Cartwright, Robert",Basketball 
+267,male,73.0,NV,"Allen, Malcolm",Basketball 
+268,male,81.0,AZ,"Humphrey, Michael",Basketball 
+269,male,77.0,AZ,"Pickens, Dorian",Basketball 
+270,male,77.0,GA,"Sheffield, Marcus",Basketball 
+271,male,75.0,NV,"Allen, Marcus",Basketball 
+272,male,84.0,MA,"Sharma, Josh",Basketball 
+273,male,79.0,CA,"Walker, Cameron",Basketball 
+274,male,80.0,MN,"Travis, Reid",Basketball 
+275,male,81.0,Other,"Allen, Rosco",Basketball 
+276,male,81.0,CA,"Verhoeven, Grant",Basketball 
+277,male,74.0,WA,"Barr, Austin",Baseball
+278,male,67.0,HI,"Branton, Beau",Baseball
+279,male,73.0,CA,"Brodey, Quinn",Baseball
+280,male,73.0,OK,"Carter, Bryce",Baseball
+281,male,70.0,CA,"Castellanos, Chris",Baseball
+282,male,75.0,CA,"Cuse, Conor",Baseball
+283,male,76.0,OR,"Decker, Matt",Baseball
+284,male,74.0,CA,"Diekroeger, Mikey",Baseball
+285,male,74.0,TX,"Dunlap, Alex",Baseball
+286,male,70.0,CA,"Edman, Tommy",Baseball
+287,male,75.0,FL,"Hanewich, Brett",Baseball
+288,male,72.0,WA,"Higgins, Brian",Baseball
+289,male,76.0,CA,"Hochstatter, John",Baseball
+290,male,77.0,PA,"Hock, Colton",Baseball
+291,male,72.0,CA,"Hoffman, Jacob",Baseball
+292,male,74.0,CA,"Klein, Jack",Baseball
+293,male,70.0,CA,"Kuet, Jesse",Baseball
+294,male,71.0,WA,"Locher, Jonny",Baseball
+295,male,75.0,Other,"Quantrill, Cal",Baseball
+296,male,74.0,FL,"Starling, Joey",Baseball
+297,male,75.0,CA,"Starwalt, Daniel",Baseball
+298,male,71.0,TX,"Styles, John Henry",Baseball
+299,male,75.0,WA,"Summerville, Andrew",Baseball
+300,male,76.0,TX,"Thorne, Tyler",Baseball
+301,male,81.0,CA,"Viall, Chris",Baseball
+302,male,76.0,OH,"Weir, Griffin",Baseball
+303,male,77.0,FL,"Weisenberg, Keith",Baseball
+304,male,73.0,CA,"Winaker, Matt",Baseball
+305,male,72.0,CA,"Zarubin, Bobby",Baseball
+306,male,77.0,CA,"Holland, Drew",Water Polo
+307,male,78.0,HI,"Lewis, Oliver",Water Polo
+308,male,76.0,CA,"Kimbell, Jackson",Water Polo
+309,male,77.0,CA,"Mendoza, Mitchell",Water Polo
+310,male,75.0,WA,"Stanchi, Marco",Water Polo
+311,male,71.0,CA,"Abdulhamid, Adam",Water Polo
+312,male,72.0,CA,"Weikert, Kyle",Water Polo
+313,male,75.0,CA,"Stapleton, Connor",Water Polo
+314,male,76.0,CA,"Bonanni, Bret",Water Polo
+315,male,75.0,CA,"Parrish, Blake",Water Polo
+316,male,73.0,CA,"Smith, Cody",Water Polo
+317,male,73.0,CA,"Roberto, Justin",Water Polo
+318,male,75.0,CA,"Chase, Reid",Water Polo
+319,male,76.0,HI,"Bolan, Griffin",Water Polo
+320,male,73.0,CA,"Enright, Harrison",Water Polo
+321,male,76.0,CA,"Warmoth, Adam",Water Polo
+322,male,76.0,CA,"Pfeil, Sam",Water Polo
+323,male,75.0,CA,"Sivesind, Grant",Water Polo
+324,male,76.0,CA,"Williams, Grady",Water Polo
+325,male,72.0,CA,"Porter, CJ",Water Polo
+326,male,73.0,CA,"Rogers, Spencer",Water Polo
+327,male,73.0,CA,"Wiser, Charlie",Water Polo
+328,male,75.0,CA,"Churnside, BJ",Water Polo
+329,male,72.0,CA,"Perla-Ward, Nelson",Water Polo
+330,male,66.0,CT,"Backes, Cam",Gymnastics
+331,male,66.0,KY,"Baker, Kevin",Gymnastics
+332,male,71.0,TX,"Barrus, Jacob",Gymnastics
+333,male,68.0,NY,"Beckhardt, Brandon",Gymnastics
+334,male,68.0,IL,"Breckenridge, Grant",Gymnastics
+335,male,67.0,CO,"Burton, Drew",Gymnastics
+336,male,66.0,MA,"Deaton, Jonathan",Gymnastics
+337,male,69.0,IL,"DeClerk, Jordan",Gymnastics
+338,male,63.0,Other,"Eng, Josiah",Gymnastics
+339,male,65.0,CA,"Flores, Gabe",Gymnastics
+340,male,67.0,NC,"Haas, Tucker",Gymnastics
+341,male,67.0,NY,"Knott, Brian",Gymnastics
+342,male,64.0,IL,"McCabe, Andrew",Gymnastics
+343,male,68.0,MI,"Misiolek, Andrew",Gymnastics
+344,male,61.0,NJ,"Modi, Akash",Gymnastics
+345,male,67.0,WI,"Neff, Robert",Gymnastics
+346,male,68.0,TN,"Patton, Wilson",Gymnastics
+347,male,64.0,TX,"Seaton, Taylor",Gymnastics
+348,male,71.0,TX,"Sheppard, Ryan",Gymnastics
+349,male,67.0,FL,"Sturm, Luke",Gymnastics
+350,male,67.0,CA,"Weiss, Barrett",Gymnastics
+351,male,66.0,CA,"Weiss, Gareth",Gymnastics
+352,male,70.0,CA,"Willoughby, Drew",Gymnastics
+353,male,66.0,NY,"Zaremski, Dennis",Gymnastics
+354,male,72.0,CO,"Epstein, Andrew",Soccer
+355,male,70.0,WA,"Langsdorf, Foster",Soccer
+356,male,71.0,CA,"Vincent, Brandon",Soccer
+357,male,73.0,NC,"Hilliard-Arce, Tomas",Soccer
+358,male,71.0,CA,"Meehan, Slater",Soccer
+359,male,70.0,CA,"Hyman, Trevor",Soccer
+360,male,68.0,CA,"Thompson, Ty",Soccer
+361,male,71.0,PA,"Nana-Sinkam, Brian",Soccer
+362,male,73.0,CA,"Verso, Mark",Soccer
+363,male,71.0,CA,"Baird, Corey",Soccer
+364,male,69.0,CA,"Bashti, Amir",Soccer
+365,male,71.0,PA,"Skundrich, Drew",Soccer
+366,male,71.0,WA,"Morris, Jordan",Soccer
+367,male,72.0,NC,"Kahl, Justin",Soccer
+368,male,70.0,CA,"Verso, Eric",Soccer
+369,male,76.0,CA,"Hyatt, Colin",Soccer
+370,male,74.0,TX,"Furrer, Charlie",Soccer
+371,male,72.0,NC,"Beason, Tanner",Soccer
+372,male,70.0,MT,"Werner, Sam",Soccer
+373,male,71.0,GA,"Alabi, Adrian",Soccer
+374,male,74.0,AZ,"Mosharrafa, Adam",Soccer
+375,male,72.0,CA,"Liberty, Collin",Soccer
+376,male,67.0,TX,"Marion, Bryce",Soccer
+377,male,74.0,CA,"Corti, Nico",Soccer
+378,male,73.0,CA,"Ashworth, Pierce",Soccer
+380,male,78.0,IL,"Fawcett, Tom",Tennis
+382,male,72.0,OH,"Goldberg, Yale",Tennis
+383,male,69.0,CA,"Hsu, David",Tennis
+385,male,73.0,FL,"Lederman, Roy",Tennis
+386,male,74.0,CT,"Paige, Nolan",Tennis
+387,male,73.0,Other,"Romanowicz, Maciek",Tennis
+388,male,73.0,FL,"Strobel, Trey",Tennis
+389,male,71.0,CA,"Sutter, Brandon",Tennis
+390,male,67.0,CA,"Tsodikov, Anthony",Tennis
+391,male,73.0,PA,"Wilczynski, David",Tennis
