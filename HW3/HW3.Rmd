@@ -2,7 +2,7 @@
 title: "HW3"
 author: "Anish Mohan"
 date: "October 9, 2015"
-output: html_document
+output: pdf_document
 ---
 
 1. #Q1
