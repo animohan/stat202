@@ -27,13 +27,13 @@ summary(train_target["ALSFRS_slope"])
   hist(num_nas_col)
 
 #Q6 Part c
-  feature.names<-names(in_training_features)
+  feature.names<-names(train_feat)
   
   for(feature.name in feature.names[-1]){
     dummy_name<-paste0("is.na.",feature.name)
-    is.na.feature <-is.na(in_training_features[,feature.name])
-    in_training_features[,dummy_name]<-as.integer(is.na.feature)
-    in_training_features[is.na.feature,feature.name]<-median(in_training_features[,feature.name], na.rm=TRUE)
+    is.na.feature <-is.na(train_feat[,feature.name])
+    train_feat[,dummy_name]<-as.integer(is.na.feature)
+    train_feat[is.na.feature,feature.name]<-median(train_feat[,feature.name], na.rm=TRUE)
     
   }
   
@@ -79,3 +79,7 @@ prop_var_set3=var_set3/sum(var_set3)
 plot(cumsum(prop_var_set3),xlab="Principal Component (with subject ID: 525450 included)",ylab="Cumulative Proportion of Variance Explained", ylim=c(0,1),type='b')
 
 biplot(pca_set3, scale=0,cex=0.6) 
+
+
+a=train_feat[1:10,c("q1_speech.slope", "q2_salivation.slope")]
+a

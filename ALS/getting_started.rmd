@@ -1,0 +1,45 @@
+Getting Started with Kaggle Competition
+========================================================
+
+After downloading the .csv files, we load the data as usual.
+
+```{r}
+#Change this to your data directory
+#data.dir <- "/Users/Ricky/Dropbox/2015_aut/stats202/"
+#setwd(data.dir)
+# Read in each data files into a data frame
+
+training.target <- read.csv("training_target.csv")
+training.features <- read.csv("training_features.csv")
+validation.features <- read.csv("validation_features.csv")
+validation.target <- read.csv("validation_target.csv")
+leaderboard.features<- read.csv("leaderboard_features.csv")
+```
+
+Let's take a look at the format of **training.target** data:
+
+```{r}
+head(training.target)
+```
+
+We also load the **leaderboard_predictions-example.csv** file to see the output format. 
+
+```{r}
+leaderboard.predictions <- read.csv("leaderboard_predictions-example.csv") 
+head(leaderboard.predictions)
+```
+The format matches with the **training.target**. 
+
+Here, for each leaderboard subject, let's predict the target by the mean of the training target.
+
+```{r}
+training_target_mean <- mean(training.target$ALSFRS_slope)
+print(training_target_mean)
+leaderboard.predictions$ALSFRS_slope <- training_target_mean
+```
+
+We use **write.csv** function to write a CSV file in the contest format with the leaderboard subject predictions. 
+
+```{r}
+write.csv(leaderboard.predictions, file = "leaderboard_predictions-training_mean.csv",row.names=FALSE)
+```
