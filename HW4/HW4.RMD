@@ -1,0 +1,265 @@
+---
+title: "HW4"
+author: "Anish Mohan"
+date: "October 18, 2015"
+---
+1. Q1
+  + 1a.
+    ```{r}
+      library(ISLR)
+      attach(Default)
+      set.seed(2)
+      glm.fit=glm(default~income+balance, family=binomial)
+    ```
+  + 1b.
+    ```{r}
+      train=sample(10000,6000)
+      train_default=(Default[train,])
+      test_default=(Default[-train,])
+      glm.fit=glm(default~income+balance, train_default,family=binomial)
+      glm.probs=predict(glm.fit,test_default,type="response")
+      glm.pred=rep("No",4000)
+      glm.pred[glm.probs>0.5]="Yes"
+      table(glm.pred,test_default$default)
+      print(paste0("Error rate = ", mean(glm.pred!=test_default$default)*100,"%"))
+    ```  
+      
+  + 1c.
+    ```{r}
+      train=sample(10000,5000)
+      train_default=(Default[train,])
+      test_default=(Default[-train,])
+      glm.fit=glm(default~income+balance, train_default,family=binomial)
+      glm.probs=predict(glm.fit,test_default,type="response")
+      glm.pred=rep("No",5000)
+      glm.pred[glm.probs>0.5]="Yes"
+      table(glm.pred,test_default$default)
+      print(paste0("Error rate = ", mean(glm.pred!=test_default$default)*100,"%"))
+
+      train=sample(10000,500)
+      train_default=(Default[train,])
+      test_default=(Default[-train,])
+      glm.fit=glm(default~income+balance, train_default,family=binomial)
+      glm.probs=predict(glm.fit,test_default,type="response")
+      glm.pred=rep("No",9500)
+      glm.pred[glm.probs>0.5]="Yes"
+      table(glm.pred,test_default$default)
+      print(paste0("Error rate = ", mean(glm.pred!=test_default$default)*100,"%"))
+
+      train=sample(10000,8000)
+      train_default=(Default[train,])
+      test_default=(Default[-train,])
+      glm.fit=glm(default~income+balance, train_default,family=binomial)
+      glm.probs=predict(glm.fit,test_default,type="response")
+      glm.pred=rep("No",2000)
+      glm.pred[glm.probs>0.5]="Yes"
+      table(glm.pred,test_default$default)
+      print(paste0("Error rate = ", mean(glm.pred!=test_default$default)*100,"%"))
+    ```
+    
+    +  Fairly low error rates are observed even when using only 5% of given data for training the model. Logistic regression captures the underlying distribution well and is able to predict with a good accuracy.
+  
+  + 1d.
+    ```{r}
+    train=sample(10000,5000)
+    train_default=(Default[train,])
+    test_default=(Default[-train,])
+    glm.fit=glm(default~income+balance+student, train_default,family=binomial)
+    glm.probs=predict(glm.fit,test_default,type="response")
+    glm.pred=rep("No",5000)
+    glm.pred[glm.probs>0.5]="Yes"
+    table(glm.pred,test_default$default)
+    print(paste0("Error rate = ", mean(glm.pred!=test_default$default)*100,"%"))
+    ```
+  
+    +  Adding Student does not seem to a significant impact in reducing the test error.
+
+
+2. #Q2
+  + 2a.
+    ```{r}
+       set.seed(1)
+      glm.fit=glm(default~income+balance,Default,family=binomial)
+      summary(glm.fit)
+    ```
+  
+  + 2b.
+    ```{r}
+    boot.fn =function(data, index){
+    train_data=data[index,]
+    glm.fit=glm(default~income+balance,train_data,family=binomial)
+    return(glm.fit$coefficients)
+    }
+    ```
+  
+  + 2c.
+    ```{r}
+      library(boot)
+      boot(data=Default, statistic = boot.fn, R=10)
+      #change R=1000 for final submission; copy value of R=100 for reference.
+    ```
+  
+            original        bias     std. error
+ t1* -1.154047e+01 -8.008379e-03 4.239273e-01
+ t2*  2.080898e-05  5.870933e-08 4.582525e-06
+ t3*  5.647103e-03  2.299970e-06 2.267955e-04
+  
+  + 2d.
+    + The standard error estimate for the coefficient ie. income and balance are same/very close (3 and 4 significant digits for R=1000) to the estimates we got from logistic regression. 
+
+
+3. #Q3
+  + 3a.
+    ```{r}
+      set.seed(1)
+      y=rnorm(100)
+      x=rnorm(100)
+      y=x-2*x^2+rnorm(100)
+    ```
+     + n=100; p=2
+     + $y=x-2*x^{2}+\epsilon$ where $\epsilon$ is random noise that is normally distributed with mean of 0 and std deviation of 1
+  
+  + 3b. 
+    ```{r}
+      plot(x,y)
+    ```
+    
+      + There is  non-linear(quadratic) relation between x and y. x has values between -2 and 2.4 and y hass between -8.7 and 2.6 
+  
+  
+  + 3c.
+    + i
+    ```{r}
+      xydat=data.frame(y,x)
+ 
+      set.seed(1)
+      glm.fit=glm(y~x, data=xydat)
+      cv.err=cv.glm(xydat,glm.fit)
+      cv.err$delta[1]
+    ```
+    
+    + ii
+    ```{r}
+      glm.fit=glm(y~poly(x,2), data=xydat)
+      cv.err=cv.glm(xydat,glm.fit)
+      cv.err$delta[1]
+    ```  
+  
+    + iii
+    ```{r}
+      glm.fit=glm(y~poly(x,3), data=xydat)
+      cv.err=cv.glm(xydat,glm.fit)
+      cv.err$delta[1]
+    ```  
+  
+    + iv
+    ```{r}
+      glm.fit=glm(y~poly(x,4), data=xydat)
+      cv.err=cv.glm(xydat,glm.fit)
+      cv.err$delta[1]
+    ```  
+  
+  + 3d.
+    ```{r}
+      set.seed(2)
+      glm.fit=glm(y~x, data=xydat)
+      cv.err=cv.glm(xydat,glm.fit)
+      cv.err$delta[1]
+
+      glm.fit=glm(y~poly(x,2), data=xydat)
+      cv.err=cv.glm(xydat,glm.fit)
+      cv.err$delta[1]
+
+      glm.fit=glm(y~poly(x,3), data=xydat)
+      cv.err=cv.glm(xydat,glm.fit)
+      cv.err$delta[1]
+
+      glm.fit=glm(y~poly(x,4), data=xydat)
+      cv.err=cv.glm(xydat,glm.fit)
+      cv.err$delta[1]
+    ```  
+ 
+    + Yes, the results are same as in part 3c. This is expected because we are running LOOCV on the full set of data and in both cases all 'n-1' subsets are evaluated.
+ 
+  + 3e. Quadratic model has the lowet error (1.0866). This is expected because true model is quadratic as well.
+  
+  + 3f. 
+    ```{r}
+      summary(glm.fit)
+    ```
+
+    + In all trials in Part(c), the  t-value for the coefficients of linear and quadratic terms are high (and p values are <0.05) indicating that they fit with least error. Yes these align with LOOCV as we found the lowest error in the quadratic model.
+    
+
+4. #Q4
+
+  + 4a.
+    ```{r}
+      library(MASS)
+      attach(Boston)
+      set.seed(1)
+      mean(medv)
+    ```
+  
+  + 4b.
+    ```{r}
+       sd(medv)/sqrt(length(medv))
+    ```
+ 
+  + 4c.
+    ```{r}
+    set.seed(1)
+    boot.fn2 = function(inputdata,index){
+    Boston_temp=inputdata[index,]
+    return (mean(Boston_temp$medv))
+      }
+      
+      boot(data=Boston, statistic = boot.fn2, R=1000)
+    ```
+  
+      + Standard Error of Mean from (b) was 0.409 and answer from bootstrap is 0.412. So the answer are very close (within 0.003) to each other
+      
+  + 4d.
+    ```{r}
+      t.test(Boston$medv)
+      print(paste0("95% confidence from t.test is between 21.729 and 23.336"))
+      
+      print(paste0("95% confidence interval from Bootstrap is between ", 22.532-2*0.412," and ", 22.532+2*0.412))
+    ```
+      
+      + The values for the 95% confidence intervals are fairly close; same to 3 significant digits
+  
+  + 4e.
+    ```{r}
+      median(medv)
+    ```
+ 
+  + 4f.
+    ```{r}
+    set.seed(1)
+    bootmedian.fn = function(inputdata,index){
+    Boston_temp=inputdata[index,]
+    return (median(Boston_temp$medv))
+      }
+      
+    boot(data=Boston, statistic = bootmedian.fn, R=1000)
+    ```
+  
+    + Using bootstrap to get standar error of median gives a value of 0.380 which is very small. With 95% confidence we can say that the true median is between 21.86 and 20.34
+    
+  + 4g.
+    quantile(medv,c(0.1))
+  
+  + 4h
+  
+    ```{r}
+    set.seed(1)
+    boot_1Quantile.fn = function(inputdata,index){
+    Boston_temp=inputdata[index,]
+    return (quantile(Boston_temp$medv,c(0.1)))
+      }
+      
+    boot(data=Boston, statistic = boot_1Quantile.fn, R=1000)
+    ```
+  
+    + Using bootstrap to get standard error of 10th percentile gives a value of 0.505 which is very small. With 95% confidence we can say that the true 10th percentile is between 11.74 and 13.76
