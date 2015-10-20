@@ -106,3 +106,17 @@ boot.fn2 = function(inputdata,index){
 boot(data=Boston, statistic = boot.fn2, R=500)
 
 
+set.seed(1)
+attach(USArrests)
+
+library(boot)
+boot_pca.fn = function(input, index){
+  temp_input=input[index,]
+  pca_set=prcomp(temp_input,scale=TRUE)
+  pca_var=pca_set$sdev^2
+  prop_Var=(pca_var[1]+pca_var[2])/sum(pr.var)
+  return(prop_Var)
+}
+
+boot(data=USArrests, statistic = boot_pca.fn, R=100)
+
