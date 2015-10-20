@@ -118,5 +118,15 @@ boot_pca.fn = function(input, index){
   return(prop_Var)
 }
 
-boot(data=USArrests, statistic = boot_pca.fn, R=100)
+boot(data=USArrests, statistic = boot_pca.fn, R=1000)
+
+boot_pca2.fn = function(input, index){
+  temp_input=input[index,]
+  pca_set=prcomp(temp_input,scale=TRUE)
+  pca_pc1=pca_set$rotation[,1]
+  return(pca_pc1)
+}
+
+boot(data=USArrests, statistic = boot_pca2.fn, R=1000)
+
 
