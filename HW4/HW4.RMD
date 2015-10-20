@@ -248,7 +248,10 @@ date: "October 18, 2015"
     + Using bootstrap to get standar error of median gives a value of 0.380 which is very small. With 95% confidence we can say that the true median is between 21.86 and 20.34
     
   + 4g.
-    quantile(medv,c(0.1))
+    ```{r}
+      quantile(medv,c(0.1))
+    ```
+    
   
   + 4h
   
@@ -263,3 +266,47 @@ date: "October 18, 2015"
     ```
   
     + Using bootstrap to get standard error of 10th percentile gives a value of 0.505 which is very small. With 95% confidence we can say that the true 10th percentile is between 11.74 and 13.76
+
+
+5. #Q5
+  + 5.1
+    ```{r}
+      set.seed(1)
+      library(boot)
+      attach(USArrests)
+      boot_pca.fn = function(input, index){
+      temp_input=input[index,]
+      pca_set=prcomp(temp_input,scale=TRUE)
+      pca_var=pca_set$sdev^2
+      prop_Var=(pca_var[1]+pca_var[2])/sum(pca_var)
+      return(prop_Var)
+      }
+
+     bstrap= boot(data=USArrests, statistic = boot_pca.fn, R=1000)
+     hist(bstrap$t)
+    ```
+  
+  + 5.2
+    Standard Error=0.0213
+    
+    ```{r}
+    print(paste0("95% confidence interval for proportion of variance explained by first 2 components is ", 0.8675-2*0.0213," and ", 0.8675+2*0.0213, " or between 82.5% to 91.1%"))
+    ```
+  
+    
+  + 5.3
+    ```{r}
+      boot_pca2.fn = function(input, index){
+      temp_input=input[index,]
+      pca_set=prcomp(temp_input,scale=TRUE)
+      pca_pc1=pca_set$rotation[,1]
+      return(pca_pc1)
+    }
+    
+    boot(data=USArrests, statistic = boot_pca2.fn, R=1000)
+    ```
+  + 5.4
+  
+  + 5.5
+  + 5.6
+
