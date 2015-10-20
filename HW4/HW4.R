@@ -129,4 +129,24 @@ boot_pca2.fn = function(input, index){
 
 boot(data=USArrests, statistic = boot_pca2.fn, R=1000)
 
+compute= function(input_data){
+  pca=prcomp(input_data,scale=TRUE)
+  pca$rotation[,]
+}
 
+
+runbstrap=function(inp_data){
+  boot_pca3.fn = function(input, index){
+    temp_input=input[index,]
+    pca_set=prcomp(temp_input,scale=TRUE)
+    v=sign(max(abs(pca_set$rotation[,1])))
+    pca_signpc1=v*pca_set$rotation[,1]
+    return(pca_signpc1)
+  }
+  
+  bstrap=boot(data=inp_data, statistic = boot_pca2.fn, R=1000)
+  
+  boxplot(bstrap$t)
+}
+
+runbstrap(USArrests)
