@@ -139,7 +139,10 @@ runbstrap=function(inp_data){
   boot_pca3.fn = function(input, index){
     temp_input=input[index,]
     pca_set=prcomp(temp_input,scale=TRUE)
-    v=sign(max(abs(pca_set$rotation[,1])))
+    ind=which.max(abs(pca_set$rotation[,1]))
+    v=sign(pca_set$rotation[ind,1])
+    #v=sign(max(abs(pca_set$rotation[,1])))
+    #v= which.max(abs(pca_set$rotation[,1]))
     pca_signpc1=v*pca_set$rotation[,1]
     return(pca_signpc1)
   }
