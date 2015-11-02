@@ -136,20 +136,38 @@ compute= function(input_data){
 
 
 runbstrap=function(inp_data){
+  set.seed(1)
   boot_pca3.fn = function(input, index){
     temp_input=input[index,]
     pca_set=prcomp(temp_input,scale=TRUE)
     ind=which.max(abs(pca_set$rotation[,1]))
-    v=sign(pca_set$rotation[ind,1])
-    #v=sign(max(abs(pca_set$rotation[,1])))
+    #v=sign(pca_set$rotation[ind,1])
+    v=sign(max(abs(pca_set$rotation[,1])))
     #v= which.max(abs(pca_set$rotation[,1]))
     pca_signpc1=v*pca_set$rotation[,1]
     return(pca_signpc1)
   }
   
-  bstrap=boot(data=inp_data, statistic = boot_pca2.fn, R=1000)
+  bstrap=boot(data=inp_data, statistic = boot_pca3.fn, R=1000)
   
   boxplot(bstrap$t)
 }
 
 runbstrap(USArrests)
+
+
+# TEMP
+boot_temppca.fn= function(input,index){
+  temp_input=input[index,]
+  pca_set=prcomp(temp_input,scale=TRUE)
+  ind=which.max(abs(pca_set$rotation[,1]))
+  v=sign(pca_set$rotation[ind,1])
+  pca_signpc1=v*pca_set$rotation[,1]
+  return (pca_signpc1)
+}
+
+boot(data=USArrests,statistic = boot_temppca.fn, R=1000)
+bstrap=boot(data=USArrests,statistic = boot_temppca.fn, R=1000)
+boxplot(bstrap$t)
+
+a=prcomp(USArrests,scale=TRUE)

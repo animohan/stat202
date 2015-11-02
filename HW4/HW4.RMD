@@ -316,7 +316,7 @@ date: "October 18, 2015"
           return(pca_signpc1)
         }
         
-        bstrap=boot(data=inp_data, statistic = boot_pca2.fn, R=1000)
+        bstrap=boot(data=inp_data, statistic = boot_pca3.fn, R=1000)
         
         boxplot(bstrap$t)
       }

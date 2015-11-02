@@ -2,7 +2,7 @@
 title: "HW2"
 author: "Anish mohan"
 date: "Oct 7 2015"
-output: pdf_document
+output: html_document
 ---
 1. # Q1
   + 1a.  Proof

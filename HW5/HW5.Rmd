@@ -1,0 +1,63 @@
+---
+title: "HW5"
+author: "Anish Mohan"
+date: "November 1, 2015"
+output: html_document
+---
+
+# Q1
+  + 1a. Training RSS will start decreasing. 
+    $\beta_{j}$'s start increasing from 0 to s, hence the value of the training RSS will start decreasing as the $\beta_{j}$'s get to their correct values.
+    
+  + 1b. Test RSS will decrease initially and then increase.
+    Test RSS will decrease as $\beta_{j}$'s increase from 0. After a local minima that gives the best value for $\beta_{j}$'s the Test RSS will start increasing as the the $\beta_{j}$'s are determined from the training set.
+    
+  + 1c. variance starts increasing
+  $\beta_{j}$'s=0 has a constant low variance independent of the data. Variance starts increasing as the s increases from 0.
+  
+  + 1d. bias starts decreasing
+  $\beta_{j}$'s=0 has the highest bias as the model predicts a constant value. As s increases from 0, the bias will start decreasing.
+  
+  + 1e. Irreducible error remains steady
+  Irreducible by error cannot be determined and continues to stay steady.
+  
+
+# Q2
+    + 2a. Training RSS will start increasing 
+    With $\lambda$=0, the solution is what get from oridinary least squares that minimize the training MSE. As $\lambda$ starts increasing from 0, the training error will start increasing as well.
+    
+  + 2b. Test RSS will decrease initially and then increase.
+    Test RSS will initially decrease as $\lambda$ increases from 0 as the $\beta_{j}$'s predicted from training set are able to predict value of the test set with error of margin. However after a certain point that models the best $lambda$ and $beta_{j}$'s for the test set, the test RSS will start going up. 
+
+  + 2c. variance starts decreasing
+  $\lambda$=0 gives the least squares solution. As $\lambda$ starts increasing the flexibility of the model starts decreasing and the variance of the model starts decreasing as well.
+
+  
+  + 2d. bias starts increasing
+  $\lambda$=0 gives the least squares solution. As $\lambda$ starts increasing the flexibility of the model starts decreasing and the bias of the model starts increasing as well.
+  
+  + 2e. Irreducible error remains steady
+  Irreducible by error cannot be determined and continues to stay steady.
+
+# Q3 
+  + 3a. For k, predictors, the best subset will have the smallest training RSS, because it looks at all k subsets and chooses the subset with lowest RSS.
+  
+  + 3b. Cannot be reliably predicted and depends on the test data. Best-subset overfits to training data so if it captures the underlying model then the lowest test RSS could be through Best subset. However, forward and backward stepwise selections could also have the least test RSS.
+  
+  + 3c.
+      + i. True
+        Forward stepwise is incremental and k+1 the iteration contains all variables of kth iterarion and an additonal variable.
+        
+      + ii.  True
+        Backward stepwise removes one element in each iteration. So kth iteration will have 1 less variable than in k+1 iteration
+      
+      + iii. False
+        It is not guaranteed to happen.
+      
+      + iv. False
+        It is not guaranteed to happen.
+      
+      + v. False
+      K+1 iteration could have elements not in kth iteration.
+      
+
