@@ -226,8 +226,83 @@ output: html_document
 # Q5. 
   
   + 5a.
+    ```{r}
+    library(ISLR)
+    set.seed(1)
+    sum(is.na(College))
+    train=sample(1:nrow(College),nrow(College)/2)
+    test=(-train)
+    College.train=College[train,]
+    College.test=College[test,]
+    ```
+ 
   + 5b.
-  + 5c.
-  + 5d.
-  + 5e.
+    ```{r}
+    lm.fit=lm(Apps~.,data=College.train)
+    lm.pred=predict(lm.fit, College.test)
+    mean((College.test[,"Apps"]-lm.pred)^2)
+    ```
     
+    RSS= 1108531
+    
+  + 5c.
+    ```{r}
+    library(glmnet)
+    ridge_train=model.matrix(Apps~.,data=College.train)
+    ridge_test=model.matrix(Apps~.,data=College.test)
+    grid=10^seq(4,-2,length=100)
+    ridge.mod=cv.glmnet(ridge_train, College.train[,"Apps"], alpha=0, lambda=grid)
+    bestlam=ridge.mod$lambda.min
+    bestlam
+    ridge.pred=predict(ridge.mod, newx=ridge_test, s=bestlam)
+    mean((College.test[,"Apps"]-ridge.pred)^2)
+    ```
+  
+  RSS= 1108062. The test RSS is comparable to the result from least squares fit.
+  
+  + 5d.
+    ```{r}
+    lasso.mod=cv.glmnet(ridge_train, College.train[,"Apps"], alpha=1, lambda=grid)
+    bestlam=lasso.mod$lambda.min
+    lasso.pred=predict(lasso.mod,newx=ridge_test, s=bestlam)
+    mean((College.test[,"Apps"]-lasso.pred)^2)
+    predict(lasso.mod,newx=ridge_test, s=bestlam, type="coefficients")
+    ```
+  
+  RSS error (1026783) is lower than ridge and least squares
+  
+  + 5e.
+    ```{r}
+    library(pls)
+    pcr.fit=pcr(Apps~., data=College, subset=train, scale=T, validation="CV")
+    validationplot(pcr.fit, val.type="MSEP")
+    summary(pcr.fit)
+    pcr.pred=predict(pcr.fit, College.test, ncomp=16)
+    mean((College.test[,"Apps"]- data.frame(pcr.pred))^2)
+    ```
+  
+  Test RSS using 16 components (1166897) is higher than lasso, ridge and least squares
+  
+  + 5f  
+    ```{r}
+        pls.fit=plsr(Apps~., data=College, subset=train, scale=T, validation="CV")
+    validationplot(pls.fit, val.type="MSEP")
+    summary(pls.fit)
+    pls.pred=predict(pls.fit, College.test, ncomp=14)
+    mean((College.test[,"Apps"]- data.frame(pls.pred))^2)
+    ```
+    
+      Test RSS using 14 components (1112475) is higher than lasso, ridge and least squares and smaller than pcr
+      
+  + 5g. 
+  Lasso gave the best results. Fit using Ridge and Least Squares was similar to lasso and the Test RSS was comparable.The Test RSS using Principal components regression and partial least squares were within the range of 10% Test RSS reported by Lasso.
+  
+
+# Q6
+ + 6a.
+ + 6b.
+ + 6c.
+ + 6d.
+ + 6e.
+ + 6f.
+ + 6g.
