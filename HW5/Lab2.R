@@ -28,8 +28,20 @@ mean((ridge.pred-y.test)^2)
 
 
 #Test
+
+set.seed(1)
 X=rnorm(100)
 eps=rnorm(100)
+
 X2=X^2
 X3=X^3
-Y=5+1*X+2*X2+4*X3+eps
+beta0=3
+beta1=2
+beta2=-3
+beta3=0.3
+Y=beta0+beta1*X+beta2*X2+beta3*X3+eps
+
+library(leaps)
+df=data.frame(y=Y,x=X)
+ridge.X=regsubsets(y~poly(x,10,raw=T), data=df, nvmax=10)
+ridge.summary=summary(ridge.X)

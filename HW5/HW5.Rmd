@@ -60,4 +60,109 @@ output: html_document
       + v. False
       K+1 iteration could have elements not in kth iteration.
       
+#Q4 
+  + 4a
+    ```{r}
+      set.seed(1)
+      X=rnorm(100)
+      eps=rnorm(100)
 
+    ```
+
+  + 4b
+    ```{r}
+      X2=X^2
+      X3=X^3
+      #beta0=1
+      #beta1=2
+      #beta2=-3
+      #beta3=0.3
+      
+      beta0=1
+      beta1=1
+      beta2=1
+      beta3=1
+      Y=beta0+beta1*X+beta2*X2+beta3*X3+eps
+    ```
+
+  + 4c
+    ```{r}
+      library(leaps)
+      df=data.frame(y=Y,x=X)
+      regfit.X=regsubsets(y~poly(x,10,raw=T), data=df, nvmax=10)
+      regfitx.summary=summary(regfit.X)
+
+      par(mfrow=c(2,2))
+      
+      plot(regfitx.summary$bic, xlab="Number of variables", ylab="bic",type = "l")
+      k=which.min(regfitx.summary$bic)
+      points(k,regfitx.summary$bic[k],col="red",cex=2,pch=20)
+      
+      plot(regfitx.summary$adjr2, xlab="Number of variables", ylab="Adjusted RSq",type = "l")
+      k=which.max(regfitx.summary$adjr2)
+      points(k,regfitx.summary$adjr2[k],col="red",cex=2,pch=20)
+      
+      plot(regfitx.summary$cp, xlab="Number of variables", ylab="Cp",type="l")
+      k=which.min(regfitx.summary$cp)
+      points(k,regfitx.summary$cp[k],col="red",cex=2,pch=20)
+      
+      coefficients(regfit.X, id=3)
+      coefficients(regfit.X, id=4)
+    ```
+
+
+  +4d.
+    ```{r}
+      regfit.fwd=regsubsets(y~poly(x,10,raw=T), data=df, nvmax=10, method="forward")
+      regfitfwd.summary=summary(regfit.X)
+
+      par(mfrow=c(2,2))
+      
+      plot(regfitfwd.summary$bic, xlab="Number of variables", ylab="bic",type = "l")
+      k=which.min(regfitfwd.summary$bic)
+      k
+      points(k,regfitfwd.summary$bic[k],col="red",cex=2,pch=20)
+      
+      plot(regfitfwd.summary$adjr2, xlab="Number of variables", ylab="Adjusted RSq",type = "l")
+      k=which.max(regfitfwd.summary$adjr2)
+      k
+      points(k,regfitfwd.summary$adjr2[k],col="red",cex=2,pch=20)
+      
+      plot(regfitfwd.summary$cp, xlab="Number of variables", ylab="Cp",type="l")
+      k=which.min(regfitfwd.summary$cp)
+      k
+      points(k,regfitfwd.summary$cp[k],col="red",cex=2,pch=20)
+      
+      coefficients(regfit.fwd, id=3)
+      coefficients(regfit.fwd, id=4) 
+      
+      
+      #Backward
+      regfit.bwd=regsubsets(y~poly(x,10,raw=T), data=df, nvmax=10, method="backward")
+      regfitbwd.summary=summary(regfit.X)
+
+      par(mfrow=c(2,2))
+      
+      plot(regfitbwd.summary$bic, xlab="Number of variables", ylab="bic",type = "l")
+      k=which.min(regfitbwd.summary$bic)
+      k
+      points(k,regfitbwd.summary$bic[k],col="red",cex=2,pch=20)
+      
+      plot(regfitbwd.summary$adjr2, xlab="Number of variables", ylab="Adjusted RSq",type = "l")
+      k=which.max(regfitbwd.summary$adjr2)
+      k
+      points(k,regfitbwd.summary$adjr2[k],col="red",cex=2,pch=20)
+      
+      plot(regfitbwd.summary$cp, xlab="Number of variables", ylab="Cp",type="l")
+      k=which.min(regfitbwd.summary$cp)
+      k
+      points(k,regfitbwd.summary$cp[k],col="red",cex=2,pch=20)
+      
+      coefficients(regfit.bwd, id=3)
+      coefficients(regfit.bwd, id=4)
+      
+    ```
+
+      Statistics from Forward and Backward models show 3 and 4 variable models are optimal. This is similar to results in 4c.
+      
+      

@@ -1,3 +1,5 @@
+
+
 library(ISLR)
 fix(Hitters)
 names(Hitters)
@@ -24,16 +26,34 @@ which.min(reg.summary$cp)
 points(10,reg.summary$cp[10],col="red",cex=2,pch=20)
 
 #Test
+
+set.seed(1)
 X=rnorm(100)
 eps=rnorm(100)
+
 X2=X^2
 X3=X^3
-Y=5+1*X+2*X2+4*X3+eps
+beta0=3
+beta1=2
+beta2=-3
+beta3=0.3
+Y=beta0+beta1*X+beta2*X2+beta3*X3+eps
 
-df=data.frame(Y)
-for(i in 1:10){
- df[paste0('X',i)]=X^i
-}
+library(leaps)
+df=data.frame(y=Y,x=X)
+regfit.X=regsubsets(y~poly(x,10,raw=T), data=df, nvmax=10)
+regfitx.summary=summary(regfit.X)
 
-regfit.X=regsubsets(df$Y~., data=df,nvmax=10)
+par(mfrow=c(2,2))
 
+plot(regfitx.summary$bic, xlab="Number of variables", ylab="bic",type = "l")
+k=which.min(regfitx.summary$bic)
+points(k,regfitx.summary$bic[k],col="red",cex=2,pch=20)
+
+plot(regfitx.summary$adjr2, xlab="Number of variables", ylab="Adjusted RSq",type = "l")
+k=which.max(regfitx.summary$adjr2)
+points(k,regfitx.summary$adjr2[k],col="red",cex=2,pch=20)
+
+plot(regfitx.summary$cp, xlab="Number of variables", ylab="Cp",type="l")
+k=which.min(regfitx.summary$cp)
+points(k,regfitx.summary$cp[k],col="red",cex=2,pch=20)
