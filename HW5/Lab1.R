@@ -25,6 +25,16 @@ plot(reg.summary$cp, xlab="Number of variables", ylab="Cp",type="l")
 which.min(reg.summary$cp)
 points(10,reg.summary$cp[10],col="red",cex=2,pch=20)
 
+plot(reg.summary$bic, xlab=" Number of Variables ", ylab ="BIC",type = "l")
+which.min(reg.summary$bic)
+points (6,reg.summary$bic[6],col=" red ",cex =2,pch =20)
+
+par(mfrow=c(1,1))
+plot(regfit.full,scale="r2")
+plot(regfit.full,scale="adjr2")
+plot(regfit.full,scale="Cp")
+plot(regfit.full,scale="bic")
+
 #Test
 
 set.seed(1)

@@ -86,6 +86,7 @@ output: html_document
     ```
 
   + 4c
+  
     ```{r}
       library(leaps)
       df=data.frame(y=Y,x=X)
@@ -106,12 +107,15 @@ output: html_document
       k=which.min(regfitx.summary$cp)
       points(k,regfitx.summary$cp[k],col="red",cex=2,pch=20)
       
-      coefficients(regfit.X, id=3)
-      coefficients(regfit.X, id=4)
+      coefficients(regfit.X,3)
+      coefficients(regfit.X,4)
     ```
-
-
-  +4d.
+    
+    3 variable model picks X, X^2 and X^3
+    4 variable model picks X, X^2, X^3 and X^5
+      
+  + 4d.
+  
     ```{r}
       regfit.fwd=regsubsets(y~poly(x,10,raw=T), data=df, nvmax=10, method="forward")
       regfitfwd.summary=summary(regfit.X)
@@ -120,29 +124,27 @@ output: html_document
       
       plot(regfitfwd.summary$bic, xlab="Number of variables", ylab="bic",type = "l")
       k=which.min(regfitfwd.summary$bic)
-      k
       points(k,regfitfwd.summary$bic[k],col="red",cex=2,pch=20)
       
       plot(regfitfwd.summary$adjr2, xlab="Number of variables", ylab="Adjusted RSq",type = "l")
       k=which.max(regfitfwd.summary$adjr2)
-      k
       points(k,regfitfwd.summary$adjr2[k],col="red",cex=2,pch=20)
       
       plot(regfitfwd.summary$cp, xlab="Number of variables", ylab="Cp",type="l")
       k=which.min(regfitfwd.summary$cp)
-      k
       points(k,regfitfwd.summary$cp[k],col="red",cex=2,pch=20)
       
-      coefficients(regfit.fwd, id=3)
-      coefficients(regfit.fwd, id=4) 
-      
-      
+      coefficients(regfit.fwd,3)
+      coefficients(regfit.fwd,4) 
+    ```
+     
+     
+    ```{r}  
       #Backward
       regfit.bwd=regsubsets(y~poly(x,10,raw=T), data=df, nvmax=10, method="backward")
       regfitbwd.summary=summary(regfit.X)
 
       par(mfrow=c(2,2))
-      
       plot(regfitbwd.summary$bic, xlab="Number of variables", ylab="bic",type = "l")
       k=which.min(regfitbwd.summary$bic)
       k
@@ -158,11 +160,33 @@ output: html_document
       k
       points(k,regfitbwd.summary$cp[k],col="red",cex=2,pch=20)
       
-      coefficients(regfit.bwd, id=3)
-      coefficients(regfit.bwd, id=4)
+      coefficients(regfit.bwd,3)
+      coefficients(regfit.bwd,4)
       
     ```
 
-      Statistics from Forward and Backward models show 3 and 4 variable models are optimal. This is similar to results in 4c.
+      Statistics from Forward and Backward models show 3 and 4 variable models are optimal. Additionally,3 variable model picks X, X^2 and X^3 and 4 variable model picks X, X^2, X^3 and X^5. 
+      These results are similar to results in 4c.
+
+  + 4e
+    ```{r}
+      par(mfrow=c(1,1))
+      library(glmnet)
+      xnew=model.matrix(y~poly(x,10,raw=T),data=df)[,-1]
+      grid=10^seq(10,-2,length=100)
       
+      set.seed(1)
+      train=sample(1:nrow(xnew),nrow(xnew)/2)
+      test=(-train)
+      Y.test=Y[test]
       
+      lasso.mod=glmnet(xnew[train,],Y[train], alpha=1,lambda=grid)
+      plot(lasso.mod)
+      
+      cv.out=cv.glmnet(xnew[train,], Y[train], alpha=1)
+      plot(cv.out)
+      bestlam=cv.out$lambda.min
+      
+      lasso.pred=predict(lasso.mod,s=bestlam,newx=xnew[test,])
+    ```
+   
