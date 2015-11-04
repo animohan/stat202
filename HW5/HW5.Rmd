@@ -298,11 +298,26 @@ output: html_document
   Lasso gave the best results. Fit using Ridge and Least Squares was similar to lasso and the Test RSS was comparable.The Test RSS using Principal components regression and partial least squares were within the range of 10% Test RSS reported by Lasso.
   
 
-# Q6
- + 6a.
- + 6b.
- + 6c.
- + 6d.
- + 6e.
- + 6f.
- + 6g.
+
+ 
+# Q7. 
+
+```{r}
+      lambda=5
+      beta=seq(-50,50,0.1)
+      y=5
+      f=(y-beta)^2 + lambda*(beta^2)
+      plot(beta,f, xlab="Beta values", ylab="ridge regression values")
+      beta_r=1/(1+lambda)
+      new_f=(y-beta_r)^2+lambda*(beta_r^2)
+      points(beta_r,new_f,col="red")
+      
+      lambda=5
+      beta=seq(-50,50,0.1)
+      y=5
+      f=(y-beta)^2 + lambda*(abs(beta))
+      plot(beta,f, xlab="Beta values", ylab="Lasso values")
+      beta_r=y-lambda/2
+      new_f=(y-beta_r)^2+lambda*abs(beta_r)
+      points(beta_r,new_f,col="red")
+```
