@@ -298,8 +298,85 @@ output: html_document
   Lasso gave the best results. Fit using Ridge and Least Squares was similar to lasso and the Test RSS was comparable.The Test RSS using Principal components regression and partial least squares were within the range of 10% Test RSS reported by Lasso.
   
 
-
+# Q6
+ + 6a.
  
+    ```{r}
+    set.seed(1)
+    library(leaps)
+    n=100
+    p=20
+    x=matrix(rnorm(n*p), nrow=n, ncol=p)
+    beta=rnorm(p)
+    eps=rnorm(p)
+    
+    beta[5]=0
+    beta[9]=0
+    beta[12]=0
+    
+    y=x %*% beta + eps
+    
+    ```
+ 
+ + 6b.
+  
+    ```{r}
+    test=sample(1:nrow(x),nrow(x)/10)
+    train=(-test)
+    x.train=x[train,]
+    x.test=x[test,]
+    y.train=y[train,]
+    y.test=y[test,]
+    
+    ```
+      
+ + 6c.
+ 
+    ```{r}
+    df=data.frame(x=x,y=y)
+    regfit =regsubsets(y~.,data=df, nvmax=p)
+    val.errors=rep(NA,p)
+    
+    train.mat=model.matrix(y~.,data=df[train,])
+    
+    for(i in 1:p) {
+     coefi=coef(regfit,id=i)
+     pred=train.mat[,names(coefi)]%*%coefi
+     val.errors[i]=mean((df$y[train]-pred)^2)
+    }
+    
+    plot(val.errors, xlab="p value", ylab="training MSE")
+    ```
+
+ + 6d.
+ 
+    ```{r}
+    val.errors=rep(NA,p)
+    for(i in 1:p) {
+     coefi=coef(regfit,id=i)
+     pred=test.mat[,names(coefi)]%*%coefi
+     val.errors[i]=mean((df$y[test]-pred)^2)
+    }
+    
+    plot(val.errors, xlab="p value", ylab="test MSE")
+    ```
+ 
+ + 6e.
+    ```{r}
+    which.min(val.errors)
+    ```
+ 
+  1 parameter model has the smallest test mse
+ 
+ + 6f.
+  
+    ```{r}
+    coef(regfit,1)
+    ```
+ 
+ + 6g.
+ 
+
 # Q7. 
 
 ```{r}
