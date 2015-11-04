@@ -73,11 +73,7 @@ output: html_document
     ```{r}
       X2=X^2
       X3=X^3
-      #beta0=1
-      #beta1=2
-      #beta2=-3
-      #beta3=0.3
-      
+
       beta0=1
       beta1=1
       beta2=1
@@ -169,6 +165,7 @@ output: html_document
       These results are similar to results in 4c.
 
   + 4e
+  
     ```{r}
       par(mfrow=c(1,1))
       library(glmnet)
@@ -187,6 +184,50 @@ output: html_document
       plot(cv.out)
       bestlam=cv.out$lambda.min
       
-      lasso.pred=predict(lasso.mod,s=bestlam,newx=xnew[test,])
+      lasso.pred=predict(lasso.mod,s=bestlam,newx=xnew[test,], type="coefficients")
+      lasso.pred
     ```
    
+   Lasso predicts a model using $X^{1}$,$X^{2}$, $X^{3}$, $X^{4}$, $X^{5}$. All variables except $X^{4}$ were chosen with backward, forward subselection example above.
+
+
++ 4f
+
+    ```{r}
+    
+    set.seed(1)
+    beta7 = 1
+    Y=beta0+beta7*X^7+eps
+    df=data.frame(y=Y,x=X)
+    regfitx7=regsubsets(y~poly(x,10,raw=T), data=df, nvmax=10)
+    regfitx7.summary=summary(regfitx7)
+    k=which.min(regfitx7.summary$bic)
+    coefficients(regfitx7,k)
+    k=which.min(regfitx7.summary$cp)
+    coefficients(regfitx7,k)
+    k=which.max(regfitx7.summary$adjr2)
+    coefficients(regfitx7,k)
+    ```
+   
+    BIC picks the correct 1 variable model with $X^7$; Cp picks 2 variable model with $X^2$ and $X^7$ and Adjusted $R^2$ picks a 4 variable model with $X^1$, $X^2$,$X^3$ and $X^7$
+    
+    ```{r}
+      xnew=model.matrix(y~poly(x,10,raw=T),data=df)[,-1]
+      cv.out=cv.glmnet(xnew, Y, alpha=1)
+      bestlam=cv.out$lambda.min
+      
+      lasso.pred=predict(lasso.mod,s=bestlam,newx=xnew, type="coefficients")
+      lasso.pred
+    ```
+    
+    Lasso picks the 2 variable model with $X^3$ and $X^5$. The intercept value is 1.7 as compared to 1.07 in the best subset selection
+    
+
+# Q5. 
+  
+  + 5a.
+  + 5b.
+  + 5c.
+  + 5d.
+  + 5e.
+    
