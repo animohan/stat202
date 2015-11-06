@@ -2,7 +2,7 @@
 title: "HW5"
 author: "Anish Mohan"
 date: "November 1, 2015"
-output: html_document
+output: word_document
 ---
 
 # Q1
@@ -338,6 +338,7 @@ output: html_document
     val.errors=rep(NA,p)
     
     train.mat=model.matrix(y~.,data=df[train,])
+    test.mat=model.matrix(y~.,data=df[test,])
     
     for(i in 1:p) {
      coefi=coef(regfit,id=i)
@@ -366,12 +367,12 @@ output: html_document
     which.min(val.errors)
     ```
  
-  1 parameter model has the smallest test mse
+  12 parameter model has the smallest test mse
  
  + 6f.
   
     ```{r}
-    coef(regfit,1)
+    coef(regfit,12)
     ```
  
  + 6g.
