@@ -1,0 +1,81 @@
+---
+title: "HW6"
+author: "Anish Mohan"
+date: "November 9, 2015"
+output: html_document
+---
+
+# Q1
+# Q2
+# Q3
+# Q4
+```{r}
+    
+      library(ISLR)
+      library(boot)
+      attach(Auto)
+      
+      set.seed(1)
+      #10-Fold validation comparing a linear and cubic model
+      
+      fit.lm=glm(mpg~horsepower, data=Auto)
+      cv.error=cv.glm(Auto,fit.lm,K=10)
+      cv.error$delta
+      
+      hplims=range(Auto$horsepower)
+      hp.grid=seq(from=hplims[1],to=hplims[2])
+      
+      plot(horsepower, mpg, xlim=hplims, cex=0.5, col="darkgrey")
+      preds=predict(fit.lm,newdata=list(horsepower=hp.grid), se=T)
+      lines(hp.grid, preds$fit, lwd=2, col="blue")
+      title("Applying linear regression")
+      
+     
+      fit.poly=glm(mpg~poly(horsepower,3),data=Auto)
+      cv.error=cv.glm(Auto,fit.poly,K=10)
+      cv.error$delta
+     
+      print(paste0("Error from polynomial regression is smaller than linear regression" )) 
+      
+      #Using Polynomial regression
+
+      preds=predict(fit.poly,newdata=list(horsepower=hp.grid), se=T)
+      se.bands=cbind(preds$fit+2*preds$se,preds$fit-2*preds$se.fit)
+      
+      plot(horsepower, mpg, xlim=hplims, cex=0.5, col="darkgrey")
+      title("Applying polynomial regression")
+      lines(hp.grid, preds$fit, lwd=2, col="blue")
+      matlines(hp.grid, se.bands, lwd=1, col="blue", lty=3)
+      
+      #using  ANOVA to analyze variance.
+      fit.1=lm(mpg~horsepower, data=Auto)
+      fit.2=lm(mpg~poly(horsepower,2), data=Auto)
+      fit.3=lm(mpg~poly(horsepower,3), data=Auto)
+      fit.4=lm(mpg~poly(horsepower,4), data=Auto)
+      
+      anova(fit.1,fit.2,fit.3,fit.4)
+      print(paste0("Quadratic model seems to be a good fit"))
+      
+      #Applying spline model
+      library(splines)
+      fit=lm(mpg~bs(horsepower, df=6),data=Auto)
+      pred=predict(fit,newdata=list(horsepower=hp.grid),se=T)
+      plot(horsepower,mpg, col="gray")
+      title('Applying splines')
+      lines(hp.grid, pred$fit,lwd=2)
+      lines(hp.grid, pred$fit+2*pred$se,lty="dashed")
+      lines(hp.grid, pred$fit-2*pred$se,lty="dashed")
+      
+      
+      #Applying local regression
+      fit=loess(mpg~horsepower, span=0.2, data=Auto)
+      pred=predict(fit, newdata=data.frame(horsepower=hp.grid))
+      plot(horsepower,mpg, col="gray")
+      title('Applying Local regression')
+      lines(hp.grid, pred,col="blue", lwd=2)
+
+```
+
+
+# Q5
+# Q6
