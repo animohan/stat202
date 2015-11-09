@@ -78,6 +78,20 @@ lines(dis.grid, preds$fit, lwd=2, col="blue")
 matlines(dis.grid, se.bands, lwd=1, col="blue", lty=3)
 
 # (b)
+
+fit=matrix(0,nrow=10,ncol=1)
+plot(dis,nox, xlim=dislims,xlab="Distance from Employment Ctr", ylab="Notrogen Oxides Conc", cex=0.5, col="darkgrey")
+for (i in 1:10){
+  lm.fit=glm(nox~poly(dis,i),data=Boston)
+  fit[i]=sum(lm.fit$residuals^2)
+  preds=predict(lm.fit,newdata=list(dis=dis.grid), se=T)
+  lines(dis.grid, preds$fit, lwd=2, col=i)
+  
+}
+
+
+
+
 plot(dis,nox, xlim=dislims,xlab="Distance from Employment Ctr", ylab="Notrogen Oxides Conc", cex=0.5, col="darkgrey")
 fit.1=lm(nox~dis,data=Boston)
 preds=predict(fit.1,newdata=list(dis=dis.grid), se=T)
