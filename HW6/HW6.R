@@ -89,26 +89,41 @@ for (i in 1:10){
   
 }
 
+fit
+
+#c
+set.seed(1)
+cv.error.delta=rep(NA,10)
+for(i in 1:10){
+  fit.poly=glm(nox~poly(dis,i),data=Boston)
+  cv.error=cv.glm(Boston,fit.poly,K=10)
+  cv.error.delta[i]=cv.error$delta[1]
+}
+plot(cv.error.delta)
+
+#degree 4 polymial is the simplest model with lowest polynomial
 
 
+#d
+library(splines)
+fit=lm(nox~bs(dis,df=6),data=Boston)
+dislims=range(Boston$dis)
+dis.grid=seq(from=dislims[1],to=dislims[2])
 
-plot(dis,nox, xlim=dislims,xlab="Distance from Employment Ctr", ylab="Notrogen Oxides Conc", cex=0.5, col="darkgrey")
-fit.1=lm(nox~dis,data=Boston)
-preds=predict(fit.1,newdata=list(dis=dis.grid), se=T)
-lines(dis.grid, preds$fit, lwd=2, col="blue")
+pred=predict(fit,newdata=list(dis=dis.grid), se=T)
+plot(dis,nox, col="gray")
+lines(dis.grid, pred$fit, lwd=2)
+lines(dis.grid, pred$fit+2*pred$se, lty="dashed")
+lines(dis.grid, pred$fit-2*pred$se, lty="dashed")
 
-fit.2=lm(nox~poly(dis,2),data=Boston)
-preds=predict(fit.2,newdata=list(dis=dis.grid), se=T)
-lines(dis.grid, preds$fit, lwd=2, col="green")
+#e
+plot(dis,nox, col="gray")
+rss=rep(NA,10)
+for(i in 3:10){
+  lm.fit=lm(nox~bs(dis,df=i),data=Boston)
+  pred=predict(lm.fit,newdata=list(dis=dis.grid), se=T)
+  lines(dis.grid, pred$fit, lwd=2, col=i*10)
+  rss[i]=sum(lm.fit$residuals^2)
+}
 
-fit.3=lm(nox~poly(dis,3),data=Boston)
-
-
-fit.4=lm(nox~poly(dis,4),data=Boston)
-fit.5=lm(nox~poly(dis,5),data=Boston)
-fit.6=lm(nox~poly(dis,6),data=Boston)
-fit.7=lm(nox~poly(dis,7),data=Boston)
-fit.8=lm(nox~poly(dis,8),data=Boston)
-fit.9=lm(nox~poly(dis,9),data=Boston)
-fit.10=lm(nox~poly(dis,10),data=Boston)
-anova(fit.1,fit.2,fit.3,fit.4,fit.5,fit.6,fit.7,fit.8,fit.9,fit.10)
+rss
