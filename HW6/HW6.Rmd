@@ -19,17 +19,38 @@ u2=lm(y~poly(x,2))
 u3=lm(y~poly(x,3))
 u4=lm(y~poly(x,4))
 u5=lm(y~poly(x,5))
+xlim=range(x)
+xgrid=seq(from=xlim[1],to=xlim[2], length.out = 100)
 ```
 
   + 1a.
     $\lambda=\infty$, m=0
     
-    Since $\lambda=\infty$, to minimize the equation, we need $g^{(0)}$ be zero or tend towards zero. This is possible with a function g(x)=0 or a g(x)=constant
+    Since $\lambda=\infty$, to minimize the equation, we need $g^{(0)}$ be zero or tend towards zero. This is possible with a function g(x)=0
+    
+    ```{r}
+  plot(x,y)
+tempval=rep(0,100)
+lines(xgrid,tempval)
+    ```
    
   + 1b.
     $\lambda=\infty$, m=1
     
-    Since $\lambda=\infty$, to minimize the equation, we need $g^{(1)}$ to be lowest or tend towards zero. This is possible with a function g(x)=$\beta_{0}+\beta_{1}*x$ as the first derivative will be constant.
+    Since $\lambda=\infty$, to minimize the equation, we need $g^{(1)}$ to be lowest or tend towards zero. This is only possible if $g(x)$ is a constant function i.e g(x)= $\beta_{0}$
+    
+    ```{r}
+plot(x,y)
+val=u0$coefficients[1]
+tempval=rep(val,100)
+lines(xgrid,tempval)
+    ```
+   
+
+  + 1c.
+    $\lambda=\infty$, m=2
+    
+    Since $\lambda=\infty$, to minimize the equation, we need $g^{(2)}$ to be lowest or tend towards zero. This is possible if $g^{(1)}$ is constant i.e $g(x)$ is a linear function with constant slope. Hence the function would be g(x)=$\beta_{0}+\beta_{1}*x$.
     
     ```{r}
 plot(x,y)
@@ -39,30 +60,17 @@ pred=predict(u1,newdata=list(x=xgrid),se=T)
 lines(xgrid, pred$fit, lwd=2)
     ```
    
-
-  + 1c.
-    $\lambda=\infty$, m=2
+  + 1d.
+    $\lambda=\infty$, m=3
     
-    Since $\lambda=\infty$, to minimize the equation, we need $g^{(2)}$ to be lowest or tend towards zero. This is possible with a function g(x)=$\beta_{0}+\beta_{1}*x+\beta_{2}*x^2$ as the 2nd derivative will be constant.
+    Since $\lambda=\infty$, to minimize the equation, we need $g^{(3)}$ to be lowest or tend towards zero. This is possible if $g^{(2)}$ is constant. This implied $g^{(1)}$ is uniformly increasing or has constant slope i.e the function $g(x)$ would be incresing at a constant rate. 
+    This is possible with a function g(x)=$\beta_{0}+\beta_{1}*x+\beta_{2}*x^2$
     
     ```{r}
 plot(x,y)
 xlim=range(x)
 xgrid=seq(from=xlim[1],to=xlim[2], length.out = 100)
 pred=predict(u2,newdata=list(x=xgrid),se=T)
-lines(xgrid, pred$fit, lwd=2)
-    ```
-   
-  + 1d.
-    $\lambda=\infty$, m=3
-    
-    Since $\lambda=\infty$, to minimize the equation, we need $g^{(3)}$ to be lowest or tend towards zero. This is possible with a function g(x)=$\beta_{0}+\beta_{1}*x+\beta_{2}*x^2+\beta_{3}*x^3$ as the 3rd derivative will be constant.
-    
-    ```{r}
-plot(x,y)
-xlim=range(x)
-xgrid=seq(from=xlim[1],to=xlim[2], length.out = 100)
-pred=predict(u3,newdata=list(x=xgrid),se=T)
 lines(xgrid, pred$fit, lwd=2)
     ```
    
