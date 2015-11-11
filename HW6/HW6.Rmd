@@ -7,6 +7,22 @@ output: html_document
 
 # Q1
 # Q2
+    ```{r}
+      x=-2:2
+      beta0=1
+      beta1=1
+      beta2=-2
+      
+      for(i in 1:5 ) {
+        if(x[i]<1){
+          y[i]=beta0+x[i]*beta1
+        } else {
+          y[i]=beta0+beta1*x[i]+beta2*(x[i]-1)^2
+        }
+      }
+      plot(x,y)
+    ```
+
 # Q3
 # Q4
 ```{r}
@@ -78,4 +94,161 @@ output: html_document
 
 
 # Q5
+  + 5a.
+  
+    ```{r}
+      library(MASS)
+      attach(Boston)
+      
+      fit.poly=glm(nox~poly(dis,3))
+      print(paste0("Coefficient of the polynomial eqn"))
+      coef(fit.poly)
+      summary(fit.poly)
+      dislims=range(Boston$dis)
+      dis.grid=seq(from=dislims[1],to=dislims[2])
+      preds=predict(fit.poly,newdata=list(dis=dis.grid), se=T)
+      se.bands=cbind(preds$fit+2*preds$se,preds$fit-2*preds$se.fit)
+      
+      plot(dis,nox, xlim=dislims,xlab="Distance from Employment Ctr", ylab="Notrogen Oxides Conc", cex=0.5, col="darkgrey")
+      title("Polynomial Regression: Boston Dataset")
+      lines(dis.grid, preds$fit, lwd=2, col="blue")
+      matlines(dis.grid, se.bands, lwd=1, col="blue", lty=3)
+
+    ```
+  
+  + 5b.
+  
+    ```{r}
+      fit=matrix(0,nrow=10,ncol=1)
+    plot(dis,nox, xlim=dislims,xlab="Distance from Employment Ctr", ylab="Notrogen Oxides Conc", cex=0.5, col="darkgrey")
+    for (i in 1:10){
+      lm.fit=glm(nox~poly(dis,i),data=Boston)
+      fit[i]=sum(lm.fit$residuals^2)
+      preds=predict(lm.fit,newdata=list(dis=dis.grid), se=T)
+      lines(dis.grid, preds$fit, lwd=2, col=i)
+    }
+    fit
+    ```
+  
+  + 5c.
+  
+    ```{r}
+      set.seed(1)
+      cv.error.delta=rep(NA,10)
+      for(i in 1:10){
+        fit.poly=glm(nox~poly(dis,i),data=Boston)
+        cv.error=cv.glm(Boston,fit.poly,K=10)
+        cv.error.delta[i]=cv.error$delta[1]
+      }
+      plot(cv.error.delta)
+    ```
+
+
+  + Degree 4 polynomial is the simplest model with lowest Cross-Validation error. 
+  
+  + A liner model does not fit the data, hence it has higher error. The quadratic and cubic models are comparable as the difference in error between them on a 10 fold CV set is small. Degree 4 polynomial shows the smallest error.
+  
+  + For polynomials>4, the residual errors are high implying that the model fits to the training data but gives poor results on the CV test data.
+  
+
+  + 5d.
+    ```{r}
+      library(splines)
+    fit=lm(nox~bs(dis,df=4),data=Boston)
+    dislims=range(Boston$dis)
+    dis.grid=seq(from=dislims[1],to=dislims[2])
+    summary(fit)
+    pred=predict(fit,newdata=list(dis=dis.grid), se=T)
+    plot(dis,nox, col="gray")
+    lines(dis.grid, pred$fit, lwd=2)
+    lines(dis.grid, pred$fit+2*pred$se, lty="dashed")
+    lines(dis.grid, pred$fit-2*pred$se, lty="dashed")
+    ```  
+  
+  + Knots were chosen by specifying the df attribute that chose the knots at uniform quantile of data. In this case, the knots were at 25th, 50th and 75th quantiles
+
+  + 5e.
+  
+    ```{r}
+    plot(dis,nox, col="gray", xlab="Degrees of Freedom")
+    rss=rep(NA,10)
+    for(i in 3:10){
+      lm.fit=lm(nox~bs(dis,df=i),data=Boston)
+      pred=predict(lm.fit,newdata=list(dis=dis.grid), se=T)
+      lines(dis.grid, pred$fit, lwd=2, col=i*10)
+      rss[i]=sum(lm.fit$residuals^2)
+    }
+    
+    plot(rss)
+    ```
+
+  + RSS decreases monotonically as we increase degrees of freedom.Lowest RSS is with df=10
+
+  + 5f
+  
+    ```{r, warning=F}
+    set.seed(1)
+    cv.error.delta=rep(NA,10)
+    for(i in 1:10){
+      fit.spline=glm(nox~bs(dis,df=i),data=Boston)
+      cv.error=cv.glm(Boston,fit.spline,K=10)
+      cv.error.delta[i]=cv.error$delta[1]
+    }
+    plot(cv.error.delta, xlab="Degrees of Freedom")
+    ```
+
+    + Lowest error obtained through cross validation is for df=10. 
+    
+    +  As we increase the degrees of freedome, initially, till we reach df=3, there is increase in the RSS. However, error starts decreasing after that till df=5. Errors fluctuate a bit, before getting the lowest error at df=10.
+    
+    
 # Q6
+
+```{r}
+            x1=rnorm(100)
+            x2=rnorm(100)
+            eps=rnorm(100)    
+            y=5+2*x1+7*x2+eps
+            
+            beta0=rep(NA,1000)
+            beta1=rep(NA,1000)
+            beta2=rep(NA,1000)
+            
+            beta1[1]=5
+        
+          for(i in 1:1000){
+            a=y-beta1[i]*x1
+            beta2[i]=lm(a~x2)$coef[2]
+            beta0[i]=lm(a~x2)$coef[1]
+        
+           a=y-beta2[i]*x2
+            beta1[i+1]=lm(a~x1)$coef[2]
+    
+          }
+          
+          plot(1:1001,beta1, col="green", type='l', ylim=c(0,10), xlab="iteration", ylab="Beta values")
+          lines(1:1000,beta0, col="red")
+          lines(1:1000,beta2, col="blue")
+        
+          
+          u=lm(y~x1+x2)
+          points(coef(u)[1],col="red", pch=8, cex=2)
+          points(coef(u)[2],col="green", pch=8, cex=2)
+          points(coef(u)[3],col="blue", pch=8, cex=2)
+         legend("topright",c("beta0","beta1","beta2"), lty=4,col = c("red","green","blue"))
+          legend("topleft",c("Multi-Reg beta0","Multi-Reg beta1"," Multi-Reg beta2"), pch=8,col = c("red","green","blue"))
+          
+          
+          plot(1:1001,beta1, col="green", type='l', ylim=c(0,10), xlab="iteration", ylab="Beta values")
+          title("Showing abline from multiple regression coefficients.")
+          lines(1:1000,beta0, col="red")
+          lines(1:1000,beta2, col="blue")
+          abline(h=beta0, lty="dashed")
+          abline(h=beta1, lty="dashed")
+          abline(h=beta2, lty="dashed")
+          
+          print(paste0("Within 2nd approximations the backfitting answers were good estimates"))
+          beta0[1:5]
+          beta1[1:5]
+          beta2[1:5]
+```    

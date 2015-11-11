@@ -88,3 +88,16 @@ fit2$df
 lines(fit,col="red",lwd=2)
 lines(fit2,col="blue", lwd=2)
 legend("topright",legend=c("16 DF","6.8 DF"), col=c("red","blue"),lty=1,lwd=2,cex=0.8)
+
+#GAM
+gam1=lm(wage~ns(year,4)+ns(age,5)+ education, data=Wage)
+library(gam)
+gam.m3=gam(wage~s(year,4)+s(age,5)+education, data=Wage)
+plot(gam.m3, se=T, col="blue")
+plot.gam(gam1, se=T, col="red")
+
+gam.m1=gam(wage~s(age,5)+education, data=Wage)
+gam.m2=gam(wage~year+s(age,5)+education, data=Wage)
+anova(gam.m1,gam.m2,gam.m3, test="F")
+summary(gam.m3)
+preds=predict(gam.m3, newdata=Wage)

@@ -106,10 +106,10 @@ plot(cv.error.delta)
 
 #d
 library(splines)
-fit=lm(nox~bs(dis,df=6),data=Boston)
+fit=lm(nox~bs(dis,df=4),data=Boston)
 dislims=range(Boston$dis)
 dis.grid=seq(from=dislims[1],to=dislims[2])
-
+summary(fit)
 pred=predict(fit,newdata=list(dis=dis.grid), se=T)
 plot(dis,nox, col="gray")
 lines(dis.grid, pred$fit, lwd=2)
@@ -126,4 +126,57 @@ for(i in 3:10){
   rss[i]=sum(lm.fit$residuals^2)
 }
 
-rss
+plot(rss)
+print(paste0("RSS decreases as we increase degrees of freedom. "))
+#lowers RSS is with df=10
+
+#f
+set.seed(1)
+cv.error.delta=rep(NA,10)
+for(i in 1:10){
+  fit.spline=glm(nox~bs(dis,df=i),data=Boston)
+  cv.error=cv.glm(Boston,fit.spline,K=10)
+  cv.error.delta[i]=cv.error$delta[1]
+}
+plot(cv.error.delta)
+
+#lowest error obtained through cross validation is for df=10
+#error decreases till degree 5, then inc and then deec
+
+
+x1=rnorm(100)
+x2=rnorm(100)
+eps=rnorm(100)
+y=5+2*x1+7*x2+eps
+
+beta0=rep(NA,1000)
+beta1=rep(NA,1000)
+beta2=rep(NA,1000)
+
+beta1[1]=5
+
+for(i in 1:1000){
+  a=y-beta1[i]*x1
+  beta2[i]=lm(a~x2)$coef[2]
+  beta0[i]=lm(a~x2)$coef[1]
+  
+  a=y-beta2[i]*x2
+  beta1[i+1]=lm(a~x1)$coef[2]
+
+}
+
+par(mfrow=c(1,1))
+
+x=-2:2
+beta0=1
+beta1=1
+beta2=-2
+
+for(i in 1:5 ) {
+  if(x[i]<1){
+    y[i]=beta0+x[i]*beta1
+  } else {
+    y[i]=beta0+beta1*x[i]+beta2*(x[i]-1)^2
+  }
+}
+plot(x,y)
