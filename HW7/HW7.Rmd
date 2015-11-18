@@ -2,7 +2,7 @@
 title: "HW7"
 author: "Anish Mohan"
 date: "November 16, 2015"
-output: word_document
+output: html_document
 ---
 # Q1
 ![Q1](Q1.JPG)
@@ -305,3 +305,70 @@ output: word_document
    - For Polynomial Kernel, best results are obtianed with Cost=1, Gamma=0.5 and a Degree-3 polynomial. The error here is 0.07634 that is lower than linear kernel and bit lower than radial kernel error
 
 # Q7
+
+    ```{r}
+    
+    library(kernlab)
+
+    data(reuters)
+    y<-rlabels
+    x<-reuters
+    sk <- stringdot(type="spectrum", length=2, normalized=TRUE)
+    
+    
+    error=matrix(NA, nrow=100, ncol=2)
+    
+    for(i in 1:100){
+      error[i,1]=i
+       sk <- stringdot(type="spectrum", length=i, normalized=TRUE)
+       svp <- ksvm(x,y,kernel=sk,scale=c(),cross=5)
+      error[i,2]=cross(svp)
+    }
+    plot(error[,1],error[,2])
+    ```
+
+  - Best error for spectrum kernel is 0.025 wit the length=3
+
+
+    ```{r}
+    ker1 = read.csv('len2lam0.1.csv')
+    ker1 = as.kernelMatrix(as.matrix(ker1))
+    
+    ker2 = read.csv('len3lam0.1.csv')
+    ker2 = as.kernelMatrix(as.matrix(ker2))
+    
+    ker3 = read.csv('len4lam0.1.csv')
+    ker3 = as.kernelMatrix(as.matrix(ker3))
+    
+    ker4 = read.csv('len5lam0.1.csv')
+    ker4 = as.kernelMatrix(as.matrix(ker4))
+    
+    ker5 = read.csv('len6lam0.1.csv')
+    ker5 = as.kernelMatrix(as.matrix(ker5))
+    
+    ker6 = read.csv('len7lam0.1.csv')
+    ker6 = as.kernelMatrix(as.matrix(ker6))
+    
+    error=rep(NA,6)
+    svp = ksvm(x=ker1[,-1],y=rlabels,cross=5)
+    error[1]=cross(svp)
+    
+    svp = ksvm(x=ker2[,-1],y=rlabels,cross=5)
+    error[2]=cross(svp)
+    
+    svp = ksvm(x=ker3[,-1],y=rlabels,cross=5)
+    error[3]=cross(svp)
+
+    svp = ksvm(x=ker4[,-1],y=rlabels,cross=5)
+    error[4]=cross(svp)
+    
+    svp = ksvm(x=ker5[,-1],y=rlabels,cross=5)
+    error[5]=cross(svp)
+
+    svp = ksvm(x=ker6[,-1],y=rlabels,cross=5)
+    error[6]=cross(svp)
+
+    plot(error)
+    ```
+    
+      - Best error for gappy kernel is 0.100 with the lengths=3,4,5 and 6

@@ -74,3 +74,24 @@ for(i in 1:100){
 
 plot(train.mse[,1],train.mse[,2], xlab="Shrinkage factor", ylab="Training MSE")
 
+
+####
+library(kernlab)
+ker = read.csv('len2lam0.1.csv')
+ker = as.kernelMatrix(as.matrix(ker))
+data(reuters)
+y<-rlabels
+x<-reuters
+sk <- stringdot(type="spectrum", length=2, normalized=TRUE)
+sgk <- gapweightkernel(length=2,lambda=0.1,normalized=TRUE,use_characters=TRUE)
+
+
+error=matrix(NA, nrow=100, ncol=2)
+
+for(i in 1:50){
+  error[i,1]=1
+  sk <- stringdot(type="spectrum", length=i, normalized=TRUE)
+  svp <- ksvm(x,y,kernel=sk,scale=c(),cross=5)
+  error[i,2]=cross(svp)
+}
+
