@@ -5,6 +5,9 @@ date: "November 16, 2015"
 output: word_document
 ---
 # Q1
+![Q1](Q1.JPG)
+  
+
 # Q2
 - Booststrap estimates for P(Class is Red | X)={ 0.1, 0.15, 0.2, 0.2, 0.55,0.6, 0.6, 0.65, 0.7, 0.75}
 
@@ -206,5 +209,99 @@ output: word_document
     - Test MSE using Bagging: 0.23
   
 # Q5
+
+    ```{r}
+    
+    library(kernlab)
+    library(e1071)
+    set.seed(1)
+    x=matrix(rnorm(100*2),ncol=2)
+    x[1:25,]=x[1:25,]+2
+    x[26:50,]=x[26:50,]-2
+    
+    y=c(rep(1,60),rep(2,40))
+    df=data.frame(x=x, y=as.factor(y))
+    
+    plot(x,col=y)
+    
+    train=sample(100,75)
+    test=-train
+    
+    df.train=df[train,]
+    df.test=df[test,]
+    
+    svmfit=svm(y~.,data=df[train,],kernel="radial", gamma=1,cost=1,scale=F)
+    plot(svmfit,df[train,])
+    summary(svmfit)
+    
+    ytrain=predict(svmfit, df[train,])
+    table(predict=ytrain, truth=df[train,"y"])
+    
+    
+    ytest=predict(svmfit, df[test,])
+    table(predict=ytest, truth=df[test,"y"])
+    
+    #Linear filter
+    svmfit=svm(y~.,data=df[train,],kernel="linear", cost=0.1,scale=F)
+    plot(svmfit,df[train,])
+    summary(svmfit)
+    
+    
+    ytrain=predict(svmfit, df[train,])
+    table(predict=ytrain, truth=df[train,"y"])
+    
+    
+    ytest=predict(svmfit, df[test,])
+    table(predict=ytest, truth=df[test,"y"])
+    ```
+
+  - With the Radial Kernel, 65 out 75 points have been assigned the correct class in the training data and 21 out of 25 points have been assigned the correct class in the test data.
+  - With the Linear kernel, only 46 out of 75 points are correctly assigned the correct class in training data and 14 out of 25 points have been assigned the correct class in the test data.
+
 # Q6
+
+  - 6a.
+  
+    ```{r}
+    library(ISLR)
+    median(Auto$mpg)
+    mileage=ifelse(Auto$mpg>=median(Auto$mpg),1,0)
+    ```
+  
+  - 6b.
+    
+    ```{r}
+        df=data.frame(cylinder=Auto$cylinders,displacement= Auto$displacement, horsepower= Auto$horsepower,  weight=Auto$weight, acceleration=Auto$acceleration, year=Auto$year, origin=Auto$origin, name=Auto$name,mileage=as.factor(mileage))
+    
+    set.seed(1)
+    tune.out=tune(svm,mileage~.,data=df, kernel="linear",ranges=list(cost=c(0.001,0.01,0.1,1,5,10,100)))
+    summary(tune.out)
+    bestmod=tune.out$best.model
+    summary(bestmod)
+    
+    ```
+  
+    - Best results are obtained with Cost=1 and the error rate is 0.092
+  
+  - 6c.
+    
+    ```{r}
+        
+    set.seed(1)
+    tune.out=tune(svm,mileage~.,data=df, kernel="radial",ranges=list(cost=c(0.001,0.01,0.1,1,5,10,100),gamma=c(0.5,1,2,3,4)))
+    summary(tune.out)
+    bestmod=tune.out$best.model
+    summary(bestmod)
+    
+    #polynomial
+    set.seed(1)
+    tune.out=tune(svm,mileage~.,data=df, kernel="polynomial",ranges=list(cost=c(0.001,0.01,0.1,1,5,10,100),gamma=c(0.5,1,2,3,4)))
+    summary(tune.out)
+    bestmod=tune.out$best.model
+    summary(bestmod)
+    ```
+  
+   - For Radial Kernel Best results are obtained with Cost=1 and Gamma=1. The error rate is 0.07647 that is better than linear kernel
+   - For Polynomial Kernel, best results are obtianed with Cost=1, Gamma=0.5 and a Degree-3 polynomial. The error here is 0.07634 that is lower than linear kernel and bit lower than radial kernel error
+
 # Q7
