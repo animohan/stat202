@@ -46,3 +46,4 @@ plot(svmfit,dat)
 svmfit=svm(y~., data=dat, kernel="linear",cost=1,scale=F)
 summary(svmfit)
 plot(svmfit,dat)
+
