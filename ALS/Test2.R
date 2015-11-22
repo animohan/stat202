@@ -46,6 +46,7 @@ for(feature.name in feature.names[-1]){
 }
 
 train_feat_median=temp[1:2424,1:858]
+df.median=data.frame(ALFRS_slope=train_targ$ALSFRS_slope, train_feat_median)
 
 #Create a dataframe containing both the ALFRS Slope and input colument
 df=data.frame(ALFRS=train_targ$ALSFRS_slope, train_feat)
@@ -106,15 +107,15 @@ df.train=df[train,]
   plot(cv.out)
   
   bestlam=cv.out$lambda.min
-  lasso.pred=predict(lasso.mod,s=bestlam,newx=df.x)
+  lasso.pred=predict(lasso.mod,s=bestlam,newx=df.median.x)
   # the reason, predict is failing is becuase, df has columns for which we did not take
   #values before
   
   
   
   #Testing on full data.set
-  df.x=model.matrix(df$ALFRS~.,df)[,-1]
-  df.y=df$ALFRS
+  df.median.x=model.matrix(df.median$ALFRS_slope~.,df.median)[,-1]
+  df.median.y=df.median$ALFRS_slope
   
   
   
