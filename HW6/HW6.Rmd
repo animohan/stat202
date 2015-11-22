@@ -2,7 +2,7 @@
 title: "HW6"
 author: "Anish Mohan"
 date: "November 9, 2015"
-output: html_document
+output: word_document
 ---
 
 # Q1
