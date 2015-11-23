@@ -42,7 +42,7 @@ for(feature.name in feature.names[-1]){
   dummy_name<-paste0("is.na.",feature.name)
   is.na.feature <-is.na(temp[,feature.name])
   temp[,dummy_name]<-as.integer(is.na.feature)
-  temp[is.na.feature,feature.name]<-median(temp[,feature.name], na.rm=TRUE)
+  temp[is.na.feature,feature.name]<-0
 }
 
 train_feat_median=temp[1:2424,1:858]
@@ -80,33 +80,6 @@ df.test.y=df.median.test$ALFRS_slope
 lasso.pred=predict(lasso.mod,s=bestlam,newx=df.test.x)
 mean((lasso.pred-df.test.y)^2)
 
-#Testing with validation feature set
-valid_feat=read.csv("validation_features.csv")
-valid_targ=read.csv("validation_target.csv")
-
-
-num_nas_col=apply(valid_feat,2,numnas)
-
-feature.names<-names(valid_feat)
-temp=valid_feat
-
-for(feature.name in feature.names[-1]){
-  dummy_name<-paste0("is.na.",feature.name)
-  is.na.feature <-is.na(temp[,feature.name])
-  temp[,dummy_name]<-as.integer(is.na.feature)
-  ifelse (is.na(median(temp[,feature.name]))==F, temp[is.na.feature,feature.name]<-median(temp[,feature.name], na.rm=TRUE),temp[is.na.feature,feature.name]<-0)
-}
-
-valid_feat_median=temp[1:101,1:858]
-
-valid.median=data.frame(ALFRS_slope=valid_targ$ALSFRS_slope,valid_feat_median)
-
-valid.x=model.matrix(valid.median$ALFRS_slope~.,valid.median)[,-1]
-valid.y=valid.median$ALFRS_slope
-
-lasso.pred=predict(lasso.mod,s=bestlam,newx=valid.x)
-mean((lasso.pred-valid.y)^2)
-
 
 #Preparing for leaderboard predictions:
 lb_feat<-read.csv("leaderboard_features.csv")
@@ -121,8 +94,7 @@ for(feature.name in feature.names[-1]){
   dummy_name<-paste0("is.na.",feature.name)
   is.na.feature <-is.na(temp[,feature.name])
   temp[,dummy_name]<-as.integer(is.na.feature)
-  ifelse (is.na(median(temp[,feature.name]))==F, temp[is.na.feature,feature.name]<-median(temp[,feature.name], na.rm=TRUE),temp[is.na.feature,feature.name]<-0)
-  
+  temp[is.na.feature,feature.name]<-0
   
 }
 
@@ -135,4 +107,4 @@ lb.y=lb.median$ALFRS_slope
 
 lasso.pred=predict(lasso.mod,s=bestlam,newx=lb.x)
 leaderboard.predictions$ALSFRS_slope=lasso.pred
-write.csv(leaderboard.predictions, file = "leaderboard_predictions.csv",row.names=FALSE)
+write.csv(leaderboard.predictions, file = "leaderboard_predictions_zero.csv",row.names=FALSE)

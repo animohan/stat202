@@ -45,21 +45,38 @@ for(feature.name in feature.names[-1]){
   temp[is.na.feature,feature.name]<-median(temp[,feature.name], na.rm=TRUE)
 }
 
-train_feat_median=temp[1:2424,1:858]
-df.median=data.frame(ALFRS_slope=train_targ$ALSFRS_slope, train_feat_median)
+
+#Create a dataframe containing both the ALFRS Slope and input colument
+df=data.frame(ALFRS_slope=train_targ$ALSFRS_slope,train_feat)
+
+#Module to use only those columns that have more than 2300 entries as non empty
+df.reduced=data.frame(subject.id=df$subject.id, ALFRS_slope=df$ALFRS_slope)
+
+# Starting from df.reduced only having subject id and ALFRS, we append only those columns that have less than 'x' empty rows
+for( i in names(num_nas_col)){
+  if(num_nas_col[i]<500 && i!="subject.id"){
+    df.reduced=data.frame(df.reduced,train_feat[i])
+  }
+}
 
 
-set.seed(1)
-train=sample(1:nrow(df.median),2000)
-test=-train
+#Now fill the empty entries with median values
+feature.names=names(df.reduced)
+temp=df.reduced
 
-df.median.test=df.median[test,]
-df.median.train=df.median[train,]
+for(feature.name in feature.names[-1]){
+  dummy_name<-paste0("is.na.",feature.name)
+  is.na.feature <-is.na(temp[,feature.name])
+  temp[,dummy_name]<-as.integer(is.na.feature)
+  temp[is.na.feature,feature.name]<-median(temp[,feature.name], na.rm=TRUE)
+}
+
+df.reduced=temp[1:2424,1:295]
 
 
 library(glmnet)
-x=model.matrix(df.median.train$ALFRS_slope~.,df.median.train)[,-1]
-y=df.median.train$ALFRS_slope
+x=model.matrix(df.reduced$ALFRS_slope~.,df.reduced)[,-1]
+y=df.reduced$ALFRS_slope
 
 grid=10^seq(10,-2,length=100)
 lasso.mod=glmnet(x,y, alpha=1, lambda=grid)
@@ -73,12 +90,6 @@ plot(cv.out)
 
 bestlam=cv.out$lambda.min
 
-
-df.test.x=model.matrix(df.median.test$ALFRS_slope~.,df.median.test)[,-1]
-df.test.y=df.median.test$ALFRS_slope
-
-lasso.pred=predict(lasso.mod,s=bestlam,newx=df.test.x)
-mean((lasso.pred-df.test.y)^2)
 
 #Testing with validation feature set
 valid_feat=read.csv("validation_features.csv")
@@ -106,6 +117,8 @@ valid.y=valid.median$ALFRS_slope
 
 lasso.pred=predict(lasso.mod,s=bestlam,newx=valid.x)
 mean((lasso.pred-valid.y)^2)
+
+
 
 
 #Preparing for leaderboard predictions:
