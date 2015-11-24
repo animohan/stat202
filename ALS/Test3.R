@@ -73,6 +73,8 @@ for(feature.name in feature.names[-1]){
 
 df.reduced=temp[1:2424,1:295]
 
+#save the reduced data frame for later, so when validating we can remove that were removed while training.
+df.reduced.save=temp
 
 library(glmnet)
 x=model.matrix(df.reduced$ALFRS_slope~.,df.reduced)[,-1]
@@ -92,14 +94,19 @@ bestlam=cv.out$lambda.min
 
 
 #Testing with validation feature set
-valid_feat=read.csv("validation_features.csv")
-valid_targ=read.csv("validation_target.csv")
+valid.feat=read.csv("validation_features.csv")
+valid.targ=read.csv("validation_target.csv")
 
+num_nas_col=apply(valid.feat,2,numnas)
 
-num_nas_col=apply(valid_feat,2,numnas)
+valid.reduced=data.frame(subject.id=valid.feat$subject.id)
 
-feature.names<-names(valid_feat)
-temp=valid_feat
+for( i in names(df.reduced.save)){
+    valid.reduced=data.frame(valid.reduced,valid.feat$i)
+}
+
+feature.names<-names(valid.reduced)
+temp=valid.reduced
 
 for(feature.name in feature.names[-1]){
   dummy_name<-paste0("is.na.",feature.name)
@@ -108,9 +115,9 @@ for(feature.name in feature.names[-1]){
   ifelse (is.na(median(temp[,feature.name]))==F, temp[is.na.feature,feature.name]<-median(temp[,feature.name], na.rm=TRUE),temp[is.na.feature,feature.name]<-0)
 }
 
-valid_feat_median=temp[1:101,1:858]
+valid.feat.median=temp[1:101,1:858]
 
-valid.median=data.frame(ALFRS_slope=valid_targ$ALSFRS_slope,valid_feat_median)
+valid.median=data.frame(ALFRS_slope=valid_targ$ALSFRS_slope,valid.feat.median)
 
 valid.x=model.matrix(valid.median$ALFRS_slope~.,valid.median)[,-1]
 valid.y=valid.median$ALFRS_slope
