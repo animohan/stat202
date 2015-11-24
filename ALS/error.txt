@@ -1,0 +1,9 @@
+Train Error-
+Median:
+Zero: 
+Reduced: 0.3112818 
+
+Validation Error-
+Median
+Zero
+Reduced: 0.4350757

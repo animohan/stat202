@@ -74,8 +74,9 @@ for(feature.name in feature.names[-1]){
 df.reduced=temp[1:2424,1:295]
 
 #save the reduced data frame for later, so when validating we can remove that were removed while training.
-df.reduced.save=temp
+df.reduced.save=temp[1:2424,1:295]
 
+#Using lasso
 library(glmnet)
 x=model.matrix(df.reduced$ALFRS_slope~.,df.reduced)[,-1]
 y=df.reduced$ALFRS_slope
@@ -92,6 +93,8 @@ plot(cv.out)
 
 bestlam=cv.out$lambda.min
 
+lasso.pred=predict(lasso.mod,s=bestlam,newx=x)
+mean((lasso.pred-y)^2)
 
 #Testing with validation feature set
 valid.feat=read.csv("validation_features.csv")
@@ -99,10 +102,13 @@ valid.targ=read.csv("validation_target.csv")
 
 num_nas_col=apply(valid.feat,2,numnas)
 
+#Selecting only specific columns for testing the data. These columns were pre-selected in training data.
 valid.reduced=data.frame(subject.id=valid.feat$subject.id)
 
-for( i in names(df.reduced.save)){
-    valid.reduced=data.frame(valid.reduced,valid.feat$i)
+for (ftname in names(df.reduced.save)){
+  if(ftname!="subject.id" && ftname!="ALFRS_slope"){
+    valid.reduced=data.frame(valid.reduced,valid.feat[ftname])
+  }
 }
 
 feature.names<-names(valid.reduced)
@@ -115,9 +121,9 @@ for(feature.name in feature.names[-1]){
   ifelse (is.na(median(temp[,feature.name]))==F, temp[is.na.feature,feature.name]<-median(temp[,feature.name], na.rm=TRUE),temp[is.na.feature,feature.name]<-0)
 }
 
-valid.feat.median=temp[1:101,1:858]
+valid.feat.median=temp[1:101,1:294]
 
-valid.median=data.frame(ALFRS_slope=valid_targ$ALSFRS_slope,valid.feat.median)
+valid.median=data.frame(ALFRS_slope=valid.targ$ALSFRS_slope,valid.feat.median)
 
 valid.x=model.matrix(valid.median$ALFRS_slope~.,valid.median)[,-1]
 valid.y=valid.median$ALFRS_slope
@@ -134,6 +140,15 @@ leaderboard.predictions <- read.csv("leaderboard_predictions-example.csv")
 
 num_nas_col=apply(lb_feat,2,numnas)
 
+lb.reduced=data.frame(subject.id=lb_feat$subject.id)
+for (ftname in names(df.reduced.save)){
+  if(ftname!="subject.id" && ftname!="ALFRS_slope"){
+    lb.reduced=data.frame(lb.reduced,lb_feat[ftname])
+  }
+}
+
+lb_feat=lb.reduced
+
 feature.names<-names(lb_feat)
 temp=lb_feat
 
@@ -146,7 +161,7 @@ for(feature.name in feature.names[-1]){
   
 }
 
-lb_feat_median=temp[1:187,1:858]
+lb_feat_median=temp[1:187,1:294]
 
 lb.median=data.frame(ALFRS_slope=leaderboard.predictions$ALSFRS_slope, lb_feat_median)
 
@@ -155,4 +170,4 @@ lb.y=lb.median$ALFRS_slope
 
 lasso.pred=predict(lasso.mod,s=bestlam,newx=lb.x)
 leaderboard.predictions$ALSFRS_slope=lasso.pred
-write.csv(leaderboard.predictions, file = "leaderboard_predictions.csv",row.names=FALSE)
+write.csv(leaderboard.predictions, file = "leaderboard_reducedset.csv",row.names=FALSE)
